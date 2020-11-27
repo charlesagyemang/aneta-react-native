@@ -1,13 +1,43 @@
 import React, {useState} from 'react';
-import { Keyboard, StyleSheet, Text, View, Platform, Button } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { SafeAreaView, Keyboard, StyleSheet, Text, View, Platform, Button } from 'react-native';
+import { Provider, TextInput } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import moment from 'moment'
+import moment from 'moment';
+import DropDownPicker from 'react-native-dropdown-picker';
 
+// import Icon from 'react-native-vector-icons/Feather';
 
 export default () => {
 
-    const [pickupDate, setPickupDate] = useState('');
+    const items = [
+        {
+            label: "SMALL",
+            value: "SMALL",
+            icon: () => {},
+        },
+        {
+            label: "MEDIUM",
+            value: "MEDIUM",
+            icon: () => {},
+        },
+        {
+            label: "LARGE",
+            value: "LARGE",
+            icon: () => {},
+        },
+        {
+            label: "EXTRA LARGE",
+            value: "EXTRA LARGE",
+            icon: () => {},
+        },
+        {
+            label: "I DONT KNOW",
+            value: "I DONT KNOW",
+            icon: () => {},
+        }
+    ]
+
+    const [pickupDate, setPickupDate] = useState(moment().format().split("T")[0]);
     const [trashSize, setTrashSize]   = useState('SMALL');
     const [location, setLocation]     = useState('');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -32,17 +62,10 @@ export default () => {
 
 
 
+
     return(
         <View style={styles.root}>
             <Text>Heyy Create Request Page</Text>
-            <TextInput 
-                style={styles.inputStyle}
-                label="Trash Size"
-                value={trashSize}
-                theme={theme}
-                mode="outlined"
-                onChangeText={currentTrashSize => setTrashSize(currentTrashSize)}
-            />
             <TextInput 
                 style={styles.inputStyle}
                 label="Location"
@@ -67,6 +90,20 @@ export default () => {
                     onCancel={hideDatePicker}
                 />
             </View>
+            <View styles={styles.dropView}>      
+                <DropDownPicker
+                    items={items}
+                    defaultValue={trashSize}
+                    containerStyle={styles.dropDoenContainerStyles}
+                    style={styles.dropDownStyle}
+                    itemStyle={{
+                        justifyContent: 'flex-start'
+                    }}
+                    dropDownStyle={styles.dropDownStyle}
+                    onChangeItem={item => setTrashSize(item.value)}
+                />
+            </View>
+
         </View>
     );
 };
@@ -86,5 +123,20 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
         margin: 10,
+    },
+    containerStyle: {
+        flex: 1,
+        marginHorizontal: 20,
+        justifyContent: 'center',
+    },
+    dropDownStyle: {
+        backgroundColor: 'white',
+    },
+    dropDoenContainerStyles: {
+        height: 60,
+    }, 
+    dropView: {
+   
+        flex: 1
     },
 })
