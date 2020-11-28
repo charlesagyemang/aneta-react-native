@@ -5,6 +5,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import KehillahDropDown from '../components/kehillahDropDown';
 import KehillahDialog from '../components/kehillahDialog';
+import AppBar from '../components/appBar'
 
 export default () => {
 
@@ -78,50 +79,57 @@ export default () => {
 
 
     return(
-        <View style={styles.root}>
-            <KehillahDropDown 
-                items={items}
-                defaultValue={trashSize}
-                onChangeItem={item => setTrashSize(item.value)}
-            />
-
-            <TextInput 
-                style={styles.inputStyle}
-                label="Location"
-                value={location}
-                theme={theme}
-                mode="outlined"
-                onChangeText={currentLocation => setLocation(currentLocation)}
-            />
+        <View style={{flex: 1}}>
             
-            <TextInput 
-                style={styles.inputStyle}
-                label="Selet A Date"
-                value={pickupDate}
-                theme={theme}
-                mode="outlined"
-                onFocus={showDatePicker}
-            />
-            <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-            />
+            <AppBar name="Create A Request" />    
+             <View style={styles.root}>
 
-            <KehillahDialog 
-                visibility={alertVisibility} 
-                close={() => setAlertVisibility(false)} 
-                message="Posted Successfully"
-                icon="✅"
-            />
-           
-            <View>
-                <Button style={styles.buttonStyle} icon="car" mode="contained" onPress={handleMakeRequest}>
-                    Press me
-                </Button>
+                <KehillahDropDown 
+                        items={items}
+                        defaultValue={trashSize}
+                        onChangeItem={item => setTrashSize(item.value)}
+                />
+
+                <TextInput 
+                    style={styles.inputStyle}
+                    label="Location"
+                    value={location}
+                    theme={theme}
+                    mode="outlined"
+                    onChangeText={currentLocation => setLocation(currentLocation)}
+                />
+                
+                <TextInput 
+                    style={styles.inputStyle}
+                    label="Selet A Date"
+                    value={pickupDate}
+                    theme={theme}
+                    mode="outlined"
+                    onFocus={showDatePicker}
+                />
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                />
+
+                <KehillahDialog 
+                    visibility={alertVisibility} 
+                    close={() => setAlertVisibility(false)} 
+                    message="Posted Successfully"
+                    icon="✅"
+                />
+                
+                
+                <View>
+                    <Button style={styles.buttonStyle} icon="car" mode="contained" onPress={handleMakeRequest}>
+                        Press me
+                    </Button>
+                </View>
             </View>
         </View>
+       
     );
 };
 

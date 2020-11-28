@@ -15,7 +15,7 @@ export default (props) => {
             containerStyle={styles.dropDoenContainerStyles}
             style={styles.dropDownStyle}
             itemStyle={{
-                justifyContent: 'flex-start'
+                justifyContent: 'flex-start',
             }}
             dropDownStyle={styles.dropDownStyle}
             onChangeItem={props.onChangeItem.bind(this)}
@@ -27,11 +27,13 @@ export default (props) => {
 const styles = StyleSheet.create({
     dropDownStyle: {
         backgroundColor: 'white',
+        zIndex: 10,
     },
     dropDoenContainerStyles: {
         height: 60,
         margin: 10,
-        marginTop: 15
+        marginTop: 15,
+        zIndex: 10,
     }, 
     label: {
         marginLeft: 10,

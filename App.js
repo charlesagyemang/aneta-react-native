@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/homeScreen';
 import CreateRequest from './screens/createRequest';
+// import AppBar from './components/appBar'
 
 const Stack = createStackNavigator();
 
@@ -52,10 +53,13 @@ const MyNavigationDrawer = () => {
 
 export default function App() {
   return (
-    <NavigationContainer>
+  
+      <NavigationContainer>
       {/* <MyStack /> */}
+      
       <MyNavigationDrawer />
     </NavigationContainer>
+    
   );
 };
 
