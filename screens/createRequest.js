@@ -3,9 +3,11 @@ import { Keyboard, StyleSheet, Text, View, Platform } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
-import KehillahDropDown from '../components/kehillahDropDown';
 import KehillahDialog from '../components/kehillahDialog';
-import AppBar from '../components/appBar'
+import AppBar from '../components/appBar';
+import BaseDropDown from '../components/baseDropDown'
+
+// import ModalDropdown from 'react-native-modal-dropdown';
 
 export default () => {
 
@@ -84,12 +86,6 @@ export default () => {
             <AppBar name="Create A Request" />    
              <View style={styles.root}>
 
-                <KehillahDropDown 
-                        items={items}
-                        defaultValue={trashSize}
-                        onChangeItem={item => setTrashSize(item.value)}
-                />
-
                 <TextInput 
                     style={styles.inputStyle}
                     label="Location"
@@ -121,6 +117,14 @@ export default () => {
                     icon="✅"
                 />
                 
+                <BaseDropDown 
+                    items={items} 
+                    value={trashSize} 
+                    onValueChange={(val) => setTrashSize(val)}  
+                    message="Select Your Trash Size"
+                />
+
+
                 
                 <View>
                     <Button style={styles.buttonStyle} icon="car" mode="contained" onPress={handleMakeRequest}>
@@ -166,6 +170,7 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         margin: 10,
+        marginTop: 30,
         padding: 10
     },
     text: {
