@@ -44,6 +44,8 @@ export default () => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [alertVisibility, setAlertVisibility] =  useState(false)
 
+    const [buttonLoadingStatus, setButtonLoadingStatus] = useState(false)
+
 
 
     const showDatePicker = () => {
@@ -123,11 +125,9 @@ export default () => {
                     onValueChange={(val) => setTrashSize(val)}  
                     message="Select Your Trash Size"
                 />
-
-
                 
                 <View>
-                    <Button style={styles.buttonStyle} icon="car" mode="contained" onPress={handleMakeRequest}>
+                    <Button style={styles.buttonStyle} loading={buttonLoadingStatus} icon="car" mode="contained" onPress={handleMakeRequest}>
                         Press me
                     </Button>
                 </View>
