@@ -134,7 +134,7 @@ const theme = {
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        marginTop: 20,
+        marginTop: 50,
         margin: 10
     },
     inputStyle: {
