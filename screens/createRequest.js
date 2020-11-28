@@ -3,13 +3,14 @@ import { Keyboard, StyleSheet, Text, View, Platform } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
-import DropDownPicker from 'react-native-dropdown-picker';
-
 import KehillahDropDown from '../components/kehillahDropDown';
 import KehillahDialog from '../components/kehillahDialog';
 
-
 export default () => {
+
+    // const goToHome = () => {
+    //     Actions.home()
+    //  }
 
     const items = [
         {
@@ -78,7 +79,6 @@ export default () => {
 
     return(
         <View style={styles.root}>
-            <Text style={styles.text}>Create A Pickup Request</Text>
             <KehillahDropDown 
                 items={items}
                 defaultValue={trashSize}
@@ -134,10 +134,8 @@ const theme = {
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        paddingTop: "20%",
-        paddingLeft: 5,
-        paddingRight: 5,
-        marginTop: 10
+        marginTop: 20,
+        margin: 10
     },
     inputStyle: {
         margin: 10,

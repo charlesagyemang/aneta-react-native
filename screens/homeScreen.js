@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button, View, Text } from 'react-native';
 
-export default () => {
+export default ({navigation}) => {
     return(
-        <View>
-            <View>
-                <Text>Welcome To Aneta Ghana ooo</Text>
-            </View> 
+        <View style={styles.container}>
+            <Button
+                title="Create A New Request"
+                onPress={() => navigation.navigate('Create Pickup Request')}
+            />
         </View>
     );
 };
