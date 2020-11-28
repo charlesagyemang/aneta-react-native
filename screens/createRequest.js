@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import { SafeAreaView, Keyboard, StyleSheet, Text, View, Platform, Button } from 'react-native';
-import { Provider, TextInput } from 'react-native-paper';
+import { Keyboard, StyleSheet, Text, View, Platform } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import DropDownPicker from 'react-native-dropdown-picker';
+import KehillahDialog from '../components/kehillahDialog';
 
-// import Icon from 'react-native-vector-icons/Feather';
 
 export default () => {
 
@@ -41,6 +41,7 @@ export default () => {
     const [trashSize, setTrashSize]   = useState('SMALL');
     const [location, setLocation]     = useState('');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [alertVisibility, setAlertVisibility] =  useState(false)
 
 
 
@@ -60,12 +61,41 @@ export default () => {
         hideDatePicker();
     };
 
+    const handleMakeRequest = () => {
+        if(pickupDate.length > 0 && location.length > 0 && trashSize.length > 0){
+            setAlertVisibility(true)
+        } else {
+            setAlertVisibility(true)
+        }
+        const bodyToSend = {
+            pickupDate,
+            location,
+            trashSize
+        }
+
+        console.log(bodyToSend);
+    }
+
 
 
 
     return(
         <View style={styles.root}>
-            <Text>Heyy Create Request Page</Text>
+            <Text style={styles.text}>Create A Pickup Request</Text>
+
+            <Text style={styles.label}>Select Trash Size</Text>
+            <DropDownPicker
+                items={items}
+                defaultValue={trashSize}
+                containerStyle={styles.dropDoenContainerStyles}
+                style={styles.dropDownStyle}
+                itemStyle={{
+                    justifyContent: 'flex-start'
+                }}
+                dropDownStyle={styles.dropDownStyle}
+                onChangeItem={item => setTrashSize(item.value)}
+                />
+
             <TextInput 
                 style={styles.inputStyle}
                 label="Location"
@@ -74,36 +104,43 @@ export default () => {
                 mode="outlined"
                 onChangeText={currentLocation => setLocation(currentLocation)}
             />
-            <View>
-                <TextInput 
-                    style={styles.inputStyle}
-                    label="Selet A Date"
-                    value={pickupDate}
-                    theme={theme}
-                    mode="outlined"
-                    onFocus={showDatePicker}
-                />
-                <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                />
-            </View>
-            <View styles={styles.dropView}>      
-                <DropDownPicker
-                    items={items}
-                    defaultValue={trashSize}
-                    containerStyle={styles.dropDoenContainerStyles}
-                    style={styles.dropDownStyle}
-                    itemStyle={{
-                        justifyContent: 'flex-start'
-                    }}
-                    dropDownStyle={styles.dropDownStyle}
-                    onChangeItem={item => setTrashSize(item.value)}
-                />
-            </View>
+            
+            <TextInput 
+                style={styles.inputStyle}
+                label="Selet A Date"
+                value={pickupDate}
+                theme={theme}
+                mode="outlined"
+                onFocus={showDatePicker}
+            />
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+            />
 
+
+            {/* <KehillahDialog 
+                visibility={alertVisibility} 
+                close={() => setAlertVisibility(false)} 
+                message="Please Fill All Boxes"
+                icon="❌"
+            /> */}
+
+            <KehillahDialog 
+                visibility={alertVisibility} 
+                close={() => setAlertVisibility(false)} 
+                message="Posted Successfully"
+                icon="✅"
+            />
+           
+
+            <View>
+                <Button style={styles.buttonStyle} icon="car" mode="contained" onPress={handleMakeRequest}>
+                    Press me
+                </Button>
+            </View>
         </View>
     );
 };
@@ -120,6 +157,7 @@ const styles = StyleSheet.create({
         paddingTop: "20%",
         paddingLeft: 5,
         paddingRight: 5,
+        marginTop: 10
     },
     inputStyle: {
         margin: 10,
@@ -134,9 +172,24 @@ const styles = StyleSheet.create({
     },
     dropDoenContainerStyles: {
         height: 60,
+        margin: 10,
+        marginTop: 15
     }, 
     dropView: {
-   
         flex: 1
     },
+    buttonStyle: {
+        margin: 10,
+        padding: 10
+    },
+    text: {
+        margin:10,
+        textAlign: "center",
+        fontSize: 20,
+    },
+    label: {
+        marginLeft: 10,
+        marginTop: 10
+    }
+
 })
