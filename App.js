@@ -30,7 +30,7 @@ const MyNavigationDrawer = () => {
 
             if (route.name === 'Home') {
               iconName = focused ? 'ios-home' : 'ios-home';
-            } else if (route.name === 'New Pickup Request') {
+            } else if (route.name === 'Create Pickup Request') {
               iconName = focused ? 'ios-git-pull-request' : 'ios-git-pull-request';
             }
 
@@ -43,7 +43,7 @@ const MyNavigationDrawer = () => {
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="New Pickup Request" component={CreateRequest} />
+        <Tab.Screen name="Create Pickup Request" component={CreateRequest} />
       </Tab.Navigator>
   )
 }
