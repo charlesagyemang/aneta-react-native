@@ -4,6 +4,8 @@ import { TextInput, Button } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import DropDownPicker from 'react-native-dropdown-picker';
+
+import KehillahDropDown from '../components/kehillahDropDown';
 import KehillahDialog from '../components/kehillahDialog';
 
 
@@ -13,27 +15,22 @@ export default () => {
         {
             label: "SMALL",
             value: "SMALL",
-            icon: () => {},
         },
         {
             label: "MEDIUM",
             value: "MEDIUM",
-            icon: () => {},
         },
         {
             label: "LARGE",
             value: "LARGE",
-            icon: () => {},
         },
         {
             label: "EXTRA LARGE",
             value: "EXTRA LARGE",
-            icon: () => {},
         },
         {
             label: "I DONT KNOW",
             value: "I DONT KNOW",
-            icon: () => {},
         }
     ]
 
@@ -82,19 +79,11 @@ export default () => {
     return(
         <View style={styles.root}>
             <Text style={styles.text}>Create A Pickup Request</Text>
-
-            <Text style={styles.label}>Select Trash Size</Text>
-            <DropDownPicker
+            <KehillahDropDown 
                 items={items}
                 defaultValue={trashSize}
-                containerStyle={styles.dropDoenContainerStyles}
-                style={styles.dropDownStyle}
-                itemStyle={{
-                    justifyContent: 'flex-start'
-                }}
-                dropDownStyle={styles.dropDownStyle}
                 onChangeItem={item => setTrashSize(item.value)}
-                />
+            />
 
             <TextInput 
                 style={styles.inputStyle}
@@ -120,14 +109,6 @@ export default () => {
                 onCancel={hideDatePicker}
             />
 
-
-            {/* <KehillahDialog 
-                visibility={alertVisibility} 
-                close={() => setAlertVisibility(false)} 
-                message="Please Fill All Boxes"
-                icon="❌"
-            /> */}
-
             <KehillahDialog 
                 visibility={alertVisibility} 
                 close={() => setAlertVisibility(false)} 
@@ -135,7 +116,6 @@ export default () => {
                 icon="✅"
             />
            
-
             <View>
                 <Button style={styles.buttonStyle} icon="car" mode="contained" onPress={handleMakeRequest}>
                     Press me

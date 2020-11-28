@@ -23,3 +23,18 @@ export default (props) => {
      </FancyAlert>   
     );
 }
+
+// ======= USAGE =======//
+{/* <KehillahDialog 
+visibility={alertVisibility} 
+close={() => setAlertVisibility(false)} 
+message="Posted Successfully"
+icon="✅"
+/> */}
+
+{/* <KehillahDialog 
+    visibility={alertVisibility} 
+    close={() => setAlertVisibility(false)} 
+    message="Please Fill All Boxes"
+    icon="❌"
+/> */}
