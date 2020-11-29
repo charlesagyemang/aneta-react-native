@@ -78,7 +78,4 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    safeAreaStyle: {
-      marginBottom: 30,
-    }
 });

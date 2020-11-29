@@ -72,6 +72,9 @@ export default () => {
             <AppBar name="All Requests" />
             <View style={styles.container}>
                 <Text>ALL REQUESTS PAGE</Text>
+                <View style={styles.newStack}>
+                  <Text>Hey</Text>
+                </View>
                 <SafeAreaView style={styles.safeAreaStyle}>
                     <FlatList
                       data={sports}
@@ -89,7 +92,11 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      // alignItems: 'center',
-      // justifyContent: 'center',
+    },
+    safeAreaStyle: {
+      height: "80%"
+    },
+    newStack:{
+      height: "10%"
     },
 });
