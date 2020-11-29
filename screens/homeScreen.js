@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
-import BaseDropDown from '../components/baseDropDown'
+import BaseDropDown from '../components/baseDropDown';
+
 
 const sports = [
     {
@@ -24,7 +25,7 @@ export default ({navigation}) => {
     const [sportValue, setSportValue] = useState();
 
     return(
-        <View style={styles.container}>
+        <View styles={styles.container}>
             <Button
                 title="Create A New Request"
                 onPress={() => navigation.navigate('Create Pickup Request')}

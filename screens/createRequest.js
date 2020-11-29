@@ -5,15 +5,10 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import KehillahDialog from '../components/kehillahDialog';
 import AppBar from '../components/appBar';
-import BaseDropDown from '../components/baseDropDown'
+import BaseDropDown from '../components/baseDropDown';
 
-// import ModalDropdown from 'react-native-modal-dropdown';
 
 export default () => {
-
-    // const goToHome = () => {
-    //     Actions.home()
-    //  }
 
     const items = [
         {
@@ -43,9 +38,7 @@ export default () => {
     const [location, setLocation]     = useState('');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [alertVisibility, setAlertVisibility] =  useState(false)
-
     const [buttonLoadingStatus, setButtonLoadingStatus] = useState(false)
-
 
 
     const showDatePicker = () => {
@@ -84,11 +77,11 @@ export default () => {
 
     return(
         <View style={{flex: 1}}>
-            
-            <AppBar name="Create A Request" />    
+
+            <AppBar name="Create A Request" />
              <View style={styles.root}>
 
-                <TextInput 
+                <TextInput
                     style={styles.inputStyle}
                     label="Location"
                     value={location}
@@ -96,8 +89,8 @@ export default () => {
                     mode="outlined"
                     onChangeText={currentLocation => setLocation(currentLocation)}
                 />
-                
-                <TextInput 
+
+                <TextInput
                     style={styles.inputStyle}
                     label="Selet A Date"
                     value={pickupDate}
@@ -112,20 +105,20 @@ export default () => {
                     onCancel={hideDatePicker}
                 />
 
-                <KehillahDialog 
-                    visibility={alertVisibility} 
-                    close={() => setAlertVisibility(false)} 
+                <KehillahDialog
+                    visibility={alertVisibility}
+                    close={() => setAlertVisibility(false)}
                     message="Posted Successfully"
                     icon="✅"
                 />
-                
-                <BaseDropDown 
-                    items={items} 
-                    value={trashSize} 
-                    onValueChange={(val) => setTrashSize(val)}  
+
+                <BaseDropDown
+                    items={items}
+                    value={trashSize}
+                    onValueChange={(val) => setTrashSize(val)}
                     message="Select Your Trash Size"
                 />
-                
+
                 <View>
                     <Button style={styles.buttonStyle} loading={buttonLoadingStatus} icon="car" mode="contained" onPress={handleMakeRequest}>
                         Press me
@@ -133,7 +126,7 @@ export default () => {
                 </View>
             </View>
         </View>
-       
+
     );
 };
 
@@ -164,7 +157,7 @@ const styles = StyleSheet.create({
         height: 60,
         margin: 10,
         marginTop: 15
-    }, 
+    },
     dropView: {
         flex: 1
     },
