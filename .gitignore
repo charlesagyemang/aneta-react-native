@@ -13,6 +13,6 @@ web-build/
 .expo-shared
 .vscode
 /node_modules
-
+yarn.lock
 # macOS
 .DS_Store
