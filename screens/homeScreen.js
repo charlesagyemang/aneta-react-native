@@ -1,34 +1,61 @@
 import React, {useState} from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
 import BaseDropDown from '../components/baseDropDown';
-import AppBar from '../components/appBar';
 
 
 const sports = [
     {
       label: 'Football',
       value: 'football',
-      key: 1,
+      key: "1",
     },
     {
       label: 'Baseball',
       value: 'baseball',
-      key: 2,
+      key: "2",
     },
     {
       label: 'Hockey',
       value: 'hockey',
-      key: 3,
+      key: "3",
+    },
+    {
+      label: 'Football',
+      value: 'football',
+      key: "4",
+    },
+    {
+      label: 'Baseball',
+      value: 'baseball',
+      key: "5",
+    },
+    {
+      label: 'Hockey',
+      value: 'hockey',
+      key: "6",
+    },
+    {
+      label: 'Football',
+      value: 'football',
+      key: "7",
+    },
+    {
+      label: 'Baseball',
+      value: 'baseball',
+      key: "8",
+    },
+    {
+      label: 'Hockey',
+      value: 'hockey',
+      key: "9",
     },
   ];
 
 export default ({navigation}) => {
     const [sportValue, setSportValue] = useState();
-
     return(
-      <View style={{flex: 1}}>
-        <AppBar name="Home Screen" />
-        <View styles={styles.container}>
+      <View style={styles.container}>
+        <View>
             <Button
                 title="Create A New Request"
                 onPress={() => navigation.navigate('New Request')}
@@ -39,6 +66,7 @@ export default ({navigation}) => {
               onValueChange={(val) => setSportValue(val)}  message="Select Your Sports"
             />
         </View>
+
       </View>
     );
 };
@@ -46,8 +74,11 @@ export default ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: 'white',
       alignItems: 'center',
       justifyContent: 'center',
     },
+    safeAreaStyle: {
+      marginBottom: 30,
+    }
 });
