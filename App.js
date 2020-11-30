@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/dashboardScreen';
 import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
-import ProfileScreen from './screens/homeScreen';
+import ProfileScreen from './screens/profileScreen';
 import ArticleCover from './screens/articleCoverScreen';
 
 const Stack = createStackNavigator();

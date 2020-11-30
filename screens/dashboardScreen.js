@@ -13,6 +13,7 @@ import {
 } from 'galio-framework';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../src/theme';
+import ArButton from '../components/Button'
 
 const BASE_SIZE = theme.SIZES.BASE;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
@@ -161,6 +162,15 @@ const Dashboard = () => {
       <ScrollView style={{ flex: 1 }}>
         {renderCards()}
       </ScrollView>
+      <ArButton
+       textStyle={{
+         color: "#fff",
+         fontWeight: "500",
+         fontSize: 16
+       }}
+     >
+       Show more
+     </ArButton>
     </Block>
   );
 }
