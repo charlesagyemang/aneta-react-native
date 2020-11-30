@@ -3,10 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import HomeScreen from './screens/homeScreen';
-import CreateRequest from './screens/createRequest';
+import HomeScreen from './screens/dashboardScreen';
+import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
-import ProfileScreen from './screens/profileScreen';
+import ProfileScreen from './screens/homeScreen';
 // import AppBar from './components/appBar'
 
 const Stack = createStackNavigator();
@@ -62,11 +62,9 @@ const MyNavigationDrawer = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <MyStack /> */}      
+      {/* <MyStack /> */}
       <MyNavigationDrawer />
     </NavigationContainer>
-    
+
   );
 };
-
-
