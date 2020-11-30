@@ -7,7 +7,7 @@ import HomeScreen from './screens/dashboardScreen';
 import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
 import ProfileScreen from './screens/homeScreen';
-// import AppBar from './components/appBar'
+import ArticleCover from './screens/articleCoverScreen';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +38,8 @@ const MyNavigationDrawer = () => {
               iconName = focused ? 'ios-list' : 'ios-list';
             } else if (route.name === 'Profile'){
               iconName = focused ? 'ios-contact' : 'ios-contact';
+            } else if (route.name === 'Article Cover'){
+              iconName = focused ? 'ios-copy' : 'ios-copy';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -52,6 +54,7 @@ const MyNavigationDrawer = () => {
         <Tab.Screen name="New Request" component={CreateRequest} />
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Article Cover" component={ArticleCover} />
       </Tab.Navigator>
   )
 }
