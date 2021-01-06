@@ -7,6 +7,8 @@ import Item from '../components/listLanguagesItem';
 import { Block, Button, Text } from 'galio-framework';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { AsyncStorage } from 'react-native';
+
 
 const BASE_SIZE = theme.SIZES.BASE;
 const GRADIENT_BLUE = ['#006400', '#00FF00'];
@@ -18,12 +20,25 @@ const COLOR_GREY = theme.COLORS.MUTED; // '#D8DDE1';
 export default () => {
   const [selectedId, setSelectedId] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [isNotEmpty, setIsNotEmpty] = useState(null);
   const [data, setData] = useState([]);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
-    axios.get('https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json')
+    AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+      setToken(JSON.parse(data).id);
+    })
+    // AsyncStorage.removeItem('USER-DETAILS', (err, data) => {
+    //   console.log(data);
+    // })
+
+    const url2 = 'https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json'
+    const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${token}`
+
+    axios.get(url)
     .then((resp) => {
-      const articles = resp.data.articles
+      const articles = resp.data.requests
+      setIsNotEmpty(resp.data.requests.length > 0)
       setData(articles);
     })
     .catch((e) => {
@@ -32,8 +47,9 @@ export default () => {
     .finally(() => {
       setLoading(false)
     })
-
   })
+
+  // console.log(token);
 
   const renderItem = ({ item }) => {
      const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
@@ -67,7 +83,7 @@ export default () => {
          </Gradient>
 
          <Block flex>
-           <Text size={BASE_SIZE * 1.125}>{props.title}</Text>
+           <Text size={BASE_SIZE * 1.125}>{props.requestStatus}</Text>
            <Text size={BASE_SIZE * 0.875} muted>{props.id}</Text>
          </Block>
          <Button style={styles.right}>
@@ -84,6 +100,7 @@ export default () => {
             <View style={styles.container}>
                 <View style={styles.newStack}>
                 { isLoading ? <Text>Loading...</Text> : <Text></Text> }
+                { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
                 </View>
                 <SafeAreaView style={styles.safeAreaStyle}>
                     <ScrollView>

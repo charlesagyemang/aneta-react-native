@@ -8,29 +8,22 @@ import {
   Platform
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
-import { storeData, retrieveData } from '../helpers/localStorage'
-
-
+import { AsyncStorage } from 'react-native';
 import  Button  from "../components/Button";
 import Images from "../constants/Images";
 import argonTheme from "../constants/Theme";
 import { HeaderHeight } from "../constants/utils";
-
 const { width, height } = Dimensions.get("screen");
-
 const thumbMeasure = (width - 48 - 32) / 3;
 
 const Profile = () => {
     const [profile, setProfile] = useState({})
     useEffect(() => {
-      const getLoginDetails = async () => {
-        const {status, value} =  await retrieveData('USER-DETAILS')
-        if (status) {
-          setProfile(JSON.parse(value))
-        }
-      }
-      getLoginDetails()
-    }, [profile])
+      AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+        setProfile(JSON.parse(data));
+        // profile(JSON.parse(data.value));
+      })
+    })
 
     return (
       <Block flex style={styles.profile}>
@@ -79,9 +72,9 @@ const Profile = () => {
                         color="#525F7F"
                         style={{ marginBottom: 4 }}
                       >
-                        Zone
+                        All Req
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>{profile.other.zone}  </Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>12 </Text>
                     </Block>
                     <Block middle>
                       <Text
@@ -90,9 +83,9 @@ const Profile = () => {
                         size={18}
                         style={{ marginBottom: 4 }}
                       >
-                        Phone
+                        Today
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>{profile.phoneNumber}  </Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>3  </Text>
                     </Block>
                     <Block middle>
                       <Text
@@ -101,9 +94,9 @@ const Profile = () => {
                         size={18}
                         style={{ marginBottom: 4 }}
                       >
-                        Location
+                        This Month
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>{profile.other.location}  </Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>  3  </Text>
                     </Block>
                   </Block>
                 </Block>
@@ -113,7 +106,7 @@ const Profile = () => {
                       {profile.other.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      {profile.other.zone}, {profile.other.location}, {profile.phoneNumber}
+                    {profile.other.zone}, {profile.other.location}, {profile.phoneNumber}
                     </Text>
                   </Block>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
