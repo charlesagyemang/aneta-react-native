@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E9ECEF"
   },
+  
   thumb: {
     borderRadius: 4,
     marginVertical: 4,
