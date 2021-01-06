@@ -9,6 +9,7 @@ const Viewed = [
   'https://images.unsplash.com/photo-1482686115713-0fbcaced6e28?fit=crop&w=240&q=80',
 ];
 
+const AnetaLogo = 'https://i.ibb.co/Yfxtmqg/Copy-of-Copy-of-Aneta.png';
 const Products = {
   'View article': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
 };
@@ -16,5 +17,6 @@ const Products = {
 export default {
   ProfilePicture,
   Viewed,
-  Products
+  Products,
+  AnetaLogo
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,6 +7,10 @@ import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
 import ProfileScreen from './screens/profileScreen';
 import ArticleCover from './screens/articleCoverScreen';
+import LoginScreen from './screens/loginScreen';
+
+// Auth stuff
+import { storeData, retrieveData } from './helpers/localStorage';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,10 +46,26 @@ const MyNavigationDrawer = () => {
 }
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <MyNavigationDrawer />
-    </NavigationContainer>
 
-  );
+  const [isLoaggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const getLoginDetails = async () => {
+      const {status, value} =  await retrieveData('USER-DETAILS')
+      // console.log(value);
+      await setIsLoggedIn(status)
+    }
+    getLoginDetails()
+  })
+
+  if (isLoaggedIn) {
+    return (
+      <NavigationContainer>
+        <MyNavigationDrawer />
+      </NavigationContainer>
+    );
+  } else {
+    return(  <LoginScreen />)
+  }
+
 };

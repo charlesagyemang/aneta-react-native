@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   Dimensions,
@@ -8,6 +8,8 @@ import {
   Platform
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
+import { storeData, retrieveData } from '../helpers/localStorage'
+
 
 import  Button  from "../components/Button";
 import Images from "../constants/Images";
@@ -19,6 +21,17 @@ const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
 const Profile = () => {
+    const [profile, setProfile] = useState({})
+    useEffect(() => {
+      const getLoginDetails = async () => {
+        const {status, value} =  await retrieveData('USER-DETAILS')
+        if (status) {
+          setProfile(JSON.parse(value))
+        }
+      }
+      getLoginDetails()
+    })
+
     return (
       <Block flex style={styles.profile}>
         <Block flex>
@@ -34,7 +47,7 @@ const Profile = () => {
               <Block flex style={styles.profileCard}>
                 <Block middle style={styles.avatarContainer}>
                   <Image
-                    source={{ uri: Images.ProfilePicture }}
+                    source={{ uri: Images.AnetaLogo }}
                     style={styles.avatar}
                   />
                 </Block>
@@ -49,13 +62,13 @@ const Profile = () => {
                       small
                       style={{ backgroundColor: argonTheme.COLORS.INFO }}
                     >
-                      CONNECT
+                      New Req
                     </Button>
                     <Button
                       small
                       style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
                     >
-                      MESSAGE
+                      All Req
                     </Button>
                   </Block>
                   <Block row space="between">
@@ -66,9 +79,9 @@ const Profile = () => {
                         color="#525F7F"
                         style={{ marginBottom: 4 }}
                       >
-                        2K
+                        Zone
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Orders</Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>{profile.other.zone}  </Text>
                     </Block>
                     <Block middle>
                       <Text
@@ -77,9 +90,9 @@ const Profile = () => {
                         size={18}
                         style={{ marginBottom: 4 }}
                       >
-                        10
+                        Phone
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Photos</Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>{profile.phoneNumber}  </Text>
                     </Block>
                     <Block middle>
                       <Text
@@ -88,19 +101,19 @@ const Profile = () => {
                         size={18}
                         style={{ marginBottom: 4 }}
                       >
-                        89
+                        Location
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Comments</Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>{profile.other.location}  </Text>
                     </Block>
                   </Block>
                 </Block>
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
-                      Jessica Jones, 27
+                      {profile.other.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      San Francisco, USA
+                      {profile.other.zone}, {profile.other.location}
                     </Text>
                   </Block>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
@@ -115,43 +128,6 @@ const Profile = () => {
                       An artist of considerable range, Jessica name taken by
                       Melbourne …
                     </Text>
-                    <Button
-                      color="transparent"
-                      textStyle={{
-                        color: "#233DD2",
-                        fontWeight: "500",
-                        fontSize: 16
-                      }}
-                    >
-                      Show more
-                    </Button>
-                  </Block>
-                  <Block
-                    row
-                    space="between"
-                  >
-                    <Text bold size={16} color="#525F7F" style={{marginTop: 12}}>
-                      Album
-                    </Text>
-                    <Button
-                      small
-                      color="transparent"
-                      textStyle={{ color: "#5E72E4", fontSize: 12, marginLeft: 24 }}
-                    >
-                      View all
-                    </Button>
-                  </Block>
-                  <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
-                    <Block row space="between" style={{ flexWrap: "wrap" }}>
-                      {Images.Viewed.map((img, imgIndex) => (
-                        <Image
-                          source={{ uri: img }}
-                          key={`viewed-${img}`}
-                          resizeMode="cover"
-                          style={styles.thumb}
-                        />
-                      ))}
-                    </Block>
                   </Block>
                 </Block>
               </Block>
