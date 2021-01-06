@@ -13,7 +13,6 @@ import {
 } from 'galio-framework';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../src/theme';
-import ArButton from '../components/Button'
 
 const BASE_SIZE = theme.SIZES.BASE;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
@@ -24,29 +23,29 @@ const COLOR_GREY = theme.COLORS.MUTED; // '#D8DDE1';
 // mock data
 const cards = [
   {
-    title: 'All Requests',
+    title: 'Taskswwssssfgfg',
     subtitle: '15 completed tasks',
     icon: 'ios-list',
     iconFamily: 'Galio',
   },
 
   {
-    title: 'Create A New Request',
+    title: 'Aquisitions',
     subtitle: '15 completed tasks',
-    icon: 'ios-add-circle',
+    icon: 'ios-appstore',
     iconFamily: 'Galio',
   },
   {
-    title: 'Track A Pickup',
+    title: 'Cards',
     subtitle: '15 completed tasks',
-    icon: 'ios-trash',
+    icon: 'ios-home',
     iconFamily: 'Galio',
   },
 
   {
-    title: 'Profile',
+    title: 'Settings',
     subtitle: '15 completed tasks',
-    icon: 'ios-people',
+    icon: 'ios-home',
     iconFamily: 'Galio',
   },
 ];
@@ -162,6 +161,15 @@ const Dashboard = () => {
       <ScrollView style={{ flex: 1 }}>
         {renderCards()}
       </ScrollView>
+      <ArButton
+       textStyle={{
+         color: "#fff",
+         fontWeight: "500",
+         fontSize: 16
+       }}
+     >
+       Show more
+     </ArButton>
     </Block>
   );
 }
