@@ -28,6 +28,7 @@ const cards = [
     subtitle: '15 completed tasks',
     icon: 'ios-list',
     iconFamily: 'Galio',
+    name: 'All Requests',
   },
 
   {
@@ -35,12 +36,14 @@ const cards = [
     subtitle: '15 completed tasks',
     icon: 'ios-add-circle',
     iconFamily: 'Galio',
+    name: 'New Request',
   },
   {
     title: 'Track A Pickup',
     subtitle: '15 completed tasks',
     icon: 'ios-trash',
     iconFamily: 'Galio',
+    name: 'New Request',
   },
 
   {
@@ -48,11 +51,12 @@ const cards = [
     subtitle: '15 completed tasks',
     icon: 'ios-people',
     iconFamily: 'Galio',
+    name: 'Profile',
   },
 ];
 const statsTitles = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
 
   const renderHeader = () => {
     return(
@@ -146,7 +150,7 @@ const Dashboard = () => {
           <Text size={BASE_SIZE * 1.125}>{props.title}</Text>
           <Text size={BASE_SIZE * 0.875} muted>{props.subtitle}</Text>
         </Block>
-        <Button style={styles.right}>
+        <Button style={styles.right} onPress={() => navigation.navigate(props.name, { name: props.name })}>
           <Icon size={BASE_SIZE} name="ios-arrow-forward" family="Galio" color={COLOR_GREY} />
         </Button>
       </Block>

@@ -24,7 +24,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "an3ta.com"
+      "package": "an3ta.com",
+      "enableDangerousExperimentalLeanBuilds" : true,
     },
     "web": {
       "favicon": "./assets/favicon.png"

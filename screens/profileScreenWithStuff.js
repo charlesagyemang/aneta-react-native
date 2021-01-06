@@ -18,7 +18,12 @@ const thumbMeasure = (width - 48 - 32) / 3;
 
 const Profile = () => {
     const [profile, setProfile] = useState({})
-
+    useEffect(() => {
+      AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+        setProfile(JSON.parse(data));
+        // profile(JSON.parse(data.value));
+      })
+    })
 
     return (
       <Block flex style={styles.profile}>
@@ -98,10 +103,10 @@ const Profile = () => {
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
-                    test
+                      {profile.other.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                    dummy
+                    {profile.other.zone}, {profile.other.location}, {profile.phoneNumber}
                     </Text>
                   </Block>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
@@ -177,7 +182,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E9ECEF"
   },
-
+  
   thumb: {
     borderRadius: 4,
     marginVertical: 4,

@@ -4,7 +4,9 @@ import { storeData } from '../helpers/localStorage'
 import axios from 'axios'
 import KehillahDialog from '../components/kehillahDialog';
 
-export default () => {
+
+
+const LoginScreen =  ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [buttonText, setButtonText] = useState('LOGIN')
   const [pin, setPin] = useState('')
@@ -21,8 +23,10 @@ export default () => {
         setButtonText('Authenticating.....')
         const res =  await axios.post(url, loginBody)
         setButtonText('SUCCESS')
-        storeData('USER-DETAILS', JSON.stringify(res.data))
+        navigation.navigate('Home', { name: 'Home' })
+        // storeData('USER-DETAILS', JSON.stringify(res.data))
       } catch (e) {
+        console.log(e);
         setButtonText('LOGIN')
         setAlertVisibility(true)
         setErrorMessage("Wrong PhoneNumber Or PIN please check and try again")
@@ -123,3 +127,5 @@ const styles = StyleSheet.create({
     color:"white"
   }
 });
+
+export default LoginScreen;
