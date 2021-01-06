@@ -30,7 +30,7 @@ const Profile = () => {
         }
       }
       getLoginDetails()
-    })
+    }, [profile])
 
     return (
       <Block flex style={styles.profile}>
@@ -113,7 +113,7 @@ const Profile = () => {
                       {profile.other.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      {profile.other.zone}, {profile.other.location}
+                      {profile.other.zone}, {profile.other.location}, {profile.phoneNumber}
                     </Text>
                   </Block>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>

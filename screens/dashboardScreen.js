@@ -16,8 +16,8 @@ import theme from '../src/theme';
 import ArButton from '../components/Button'
 
 const BASE_SIZE = theme.SIZES.BASE;
-const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
-const GRADIENT_PINK = ['#D442F8', '#B645F5', '#9B40F8'];
+const GRADIENT_BLUE = ['#006400', '#00FF00'];
+const GRADIENT_PINK = ['#006400', '#00FF00'];
 const COLOR_WHITE = theme.COLORS.WHITE;
 const COLOR_GREY = theme.COLORS.MUTED; // '#D8DDE1';
 
@@ -78,7 +78,7 @@ const Dashboard = () => {
     return (
         <Defs key="gradient">
           <LinearGradient id="gradient" x1="0" y="0%" x2="0%" y2="100%">
-            <Stop offset="0%" stopColor={theme.COLORS.THEME} />
+            <Stop offset="0%" stopColor={theme.COLORS.RED} />
             <Stop offset="100%" stopColor={theme.COLORS.INFO} />
           </LinearGradient>
         </Defs>

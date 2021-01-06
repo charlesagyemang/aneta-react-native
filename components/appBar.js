@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     height: 100,
-    backgroundColor: "red",
+    backgroundColor: "green",
 
   },
   content: {

@@ -9,59 +9,10 @@ import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const BASE_SIZE = theme.SIZES.BASE;
-const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
-const GRADIENT_PINK = ['#D442F8', '#B645F5', '#9B40F8'];
+const GRADIENT_BLUE = ['#006400', '#00FF00'];
+const GRADIENT_PINK = ['#006400', '#00FF00'];
 const COLOR_WHITE = theme.COLORS.WHITE;
 const COLOR_GREY = theme.COLORS.MUTED; // '#D8DDE1';
-
-
-const sports = [
-    {
-      label: 'Football',
-      value: 'football',
-      key: "1",
-    },
-    {
-      label: 'Baseball',
-      value: 'baseball',
-      key: "2",
-    },
-    {
-      label: 'Hockey',
-      value: 'hockey',
-      key: "3",
-    },
-    {
-      label: 'Football',
-      value: 'football',
-      key: "4",
-    },
-    {
-      label: 'Baseball',
-      value: 'baseball',
-      key: "5",
-    },
-    {
-      label: 'Hockey',
-      value: 'hockey',
-      key: "6",
-    },
-    {
-      label: 'Football',
-      value: 'football',
-      key: "7",
-    },
-    {
-      label: 'Baseball',
-      value: 'baseball',
-      key: "8",
-    },
-    {
-      label: 'Hockey',
-      value: 'hockey',
-      key: "9",
-    },
-  ];
 
 
 export default () => {

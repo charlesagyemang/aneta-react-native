@@ -10,7 +10,7 @@ import BaseDropDown from '../components/baseDropDown';
 
 export default () => {
 
-    const items = [
+    const trashSizes = [
         {
             label: "SMALL",
             value: "SMALL",
@@ -33,9 +33,60 @@ export default () => {
         }
     ]
 
+
+    const zoneList = [
+        {
+            label: "Ablekuma-Awoshie",
+            value: "Ablekuma-Awoshie",
+        },
+        {
+            label: "Tema-Spintext Zone",
+            value: "Tema-Spintext Zone",
+        },
+        {
+            label: "Afeanya-Prampram Zone",
+            value: "Afeanya-Prampram Zone",
+        },
+        {
+            label: "Ofankor-Nsawam Zone",
+            value: "Ofankor-Nsawam Zone",
+        },
+
+        {
+            label: "Odorkor-Accra Zone",
+            value: "Odorkor-Accra Zone",
+        },
+        {
+            label: "Madina-Adenta-Aburi Zone",
+            value: "Madina-Adenta-Aburi Zone",
+        },
+        {
+            label: "Kwashieman-Lapaz-Legon Zone",
+            value: "Kwashieman-Lapaz-Legon Zone",
+        },
+        {
+            label: "Kasoa-Mallam-ofankor Zone",
+            value: "Kasoa-Mallam-ofankor Zone",
+        },
+        {
+            label: "I DONT KNOW",
+            value: "I DONT KNOW",
+        },
+
+        {
+            label: "La-Teshie-Nungua Zone",
+            value: "La-Teshie-Nungua Zone",
+        },
+        {
+            label: "East Legon - Airport - 37 Zone",
+            value: "East Legon - Airport - 37 Zone",
+        }
+    ]
+
     const [pickupDate, setPickupDate] = useState(moment().format().split("T")[0]);
-    const [trashSize, setTrashSize]   = useState('SMALL');
+    const [trashSize, setTrashSize]   = useState('I DONT KNOW');
     const [location, setLocation]     = useState('');
+    const [zone, setZone]     = useState('La-Teshie-Nungua Zone');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [alertVisibility, setAlertVisibility] =  useState(false)
     const [buttonLoadingStatus, setButtonLoadingStatus] = useState(false)
@@ -81,9 +132,16 @@ export default () => {
             <AppBar name="Create A Request" />
              <View style={styles.root}>
 
+             <BaseDropDown
+                 items={zoneList}
+                 value={zone}
+                 onValueChange={(val) => setZone(val)}
+                 message="Select Your Zone"
+             />
+
                 <TextInput
                     style={styles.inputStyle}
-                    label="Location"
+                    label="Actual Location In The zone"
                     value={location}
                     theme={theme}
                     mode="outlined"
@@ -113,12 +171,11 @@ export default () => {
                 />
 
                 <BaseDropDown
-                    items={items}
+                    items={trashSizes}
                     value={trashSize}
                     onValueChange={(val) => setTrashSize(val)}
                     message="Select Your Trash Size"
                 />
-
                 <View>
                     <Button style={styles.buttonStyle} loading={buttonLoadingStatus} icon="car" mode="contained" onPress={handleMakeRequest}>
                         Press me
@@ -132,7 +189,7 @@ export default () => {
 
 const theme = {
     colors: {
-        primary: "red"
+        primary: "green"
     }
 }
 
@@ -165,7 +222,7 @@ const styles = StyleSheet.create({
         margin: 10,
         marginTop: 30,
         padding: 10,
-        backgroundColor: '#B22222'
+        backgroundColor: 'green'
     },
     text: {
         margin:10,

@@ -33,7 +33,7 @@ const MyNavigationDrawer = () => {
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'tomato',
+          activeTintColor: 'green',
           inactiveTintColor: 'gray',
         }}
       >
