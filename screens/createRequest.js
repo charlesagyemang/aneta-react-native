@@ -12,7 +12,7 @@ import { AsyncStorage } from 'react-native';
 
 
 
-export default () => {
+export default ({navigation}) => {
 
     const trashSizes = [
         {
@@ -72,10 +72,6 @@ export default () => {
             label: "Kasoa-Mallam-ofankor Zone",
             value: "Kasoa-Mallam-ofankor Zone",
         },
-        {
-            label: "I DONT KNOW",
-            value: "I DONT KNOW",
-        },
 
         {
             label: "La-Teshie-Nungua Zone",
@@ -94,6 +90,9 @@ export default () => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [alertVisibility, setAlertVisibility] =  useState(false)
     const [buttonLoadingStatus, setButtonLoadingStatus] = useState(false);
+    const [alertMessage, setAlertMessage] = useState(false);
+    const [alertLogo, setAlertLogo] = useState('✅');
+    const [buttonMessage, setButtonMessage] = useState('SUBMIT');
 
     const [currentUser, setCurrentUser] = useState({id: "", other: {location: "Ablekuma-Awoshie", zone: "Ablekuma-Awoshie", trashSize: "I DONT KNOW"}})
 
@@ -101,10 +100,8 @@ export default () => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
         const dataGotten = JSON.parse(data);
         setCurrentUser(dataGotten);
+        setLocation(dataGotten.other.location)
       })
-      setZone(currentUser.other.zone)
-      setLocation(currentUser.other.location)
-      setTrashSize(currentUser.other.trashSize)
     })
 
     const showDatePicker = () => {
@@ -124,27 +121,40 @@ export default () => {
     };
 
     const handleMakeRequest = () => {
-        const RANDOM_NUMBER = Math.floor(1000000 + (Math.random() * 9000000));
-        const bodyToSend = {
-          id: `18${RANDOM_NUMBER}00`,
-          paymentMethod: '',
-          requestStatus: 'CREATED',
-          trashSize: trashSize,
-          requestType: 'ONE_OFF',
-          requester: currentUser.id,
-          date: pickupDate,
-          paymentStatus: 'NOT_PAID',
-          other: {
-            proposedDate: pickupDate,
-            source: 'MOBILE-APP',
-            status: 'ACTIVE',
-            proposedLocation: location,
-          },
-        }
-
-
-        console.log(bodyToSend);
-    }
+      setButtonMessage('Sending Request Please Wait.....')
+      const url = 'https://kelin-weebhook.herokuapp.com/api/request';
+      const bodyToSend = {
+        paymentMethod: '',
+        requestStatus: 'CREATED',
+        trashSize: trashSize,
+        requestType: 'ONE_OFF',
+        requester: currentUser.id,
+        date: pickupDate,
+        paymentStatus: 'NOT_PAID',
+        other: {
+          proposedDate: pickupDate,
+          source: 'MOBILE-APP',
+          status: 'ACTIVE',
+          proposedLocation: location,
+        },
+      }
+      axios.post(url, bodyToSend)
+      .then(({data}) => {
+        const message = `Request Successfully Created With ID ${data.id}`;
+        console.log(data);
+        setAlertVisibility(true)
+        setAlertMessage(message)
+        setButtonMessage('Success')
+        navigation.navigate('All Requests', {name: 'All Requets'})
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setAlertVisibility(true)
+        setAlertLogo('❌')
+        setAlertMessage('An error Occured While Sending Request. Please Try Again Later')
+        setButtonMessage('SUBMIT')
+      })
+  }
 
 
 
@@ -189,8 +199,8 @@ export default () => {
                 <KehillahDialog
                     visibility={alertVisibility}
                     close={() => setAlertVisibility(false)}
-                    message="Posted Successfully"
-                    icon="✅"
+                    message={alertMessage}
+                    icon={alertLogo}
                 />
 
                 <BaseDropDown
@@ -201,7 +211,7 @@ export default () => {
                 />
                 <View>
                     <Button style={styles.buttonStyle} loading={buttonLoadingStatus} icon="car" mode="contained" onPress={handleMakeRequest}>
-                        Press me
+                        {buttonMessage}
                     </Button>
                 </View>
             </View>
