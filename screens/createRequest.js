@@ -12,6 +12,7 @@ import { AsyncStorage } from 'react-native';
 
 
 
+
 export default ({navigation}) => {
 
     const trashSizes = [
