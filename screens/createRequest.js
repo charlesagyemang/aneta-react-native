@@ -97,10 +97,12 @@ export default () => {
 
     const [currentUser, setCurrentUser] = useState({id: "", other: {location: ""}})
 
-    AsyncStorage.getItem('USER-DETAILS', (err, data) => {
-      setCurrentUser(JSON.parse(data));
-      setLocation(currentUser.other.location)
-    })
+    // AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+    //   const dataGotten = JSON.parse(data);
+    //   setCurrentUser(dataGotten);
+    //   setLocation(dataGotten.other.location);
+    //   setZone(dataGotten.other.zone);
+    // })
 
 
 
