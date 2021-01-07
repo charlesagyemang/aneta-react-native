@@ -8,7 +8,7 @@ import AppBar from '../components/appBar';
 import BaseDropDown from '../components/baseDropDown';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-// import  Button  from "../components/Button";
+// import  {sendSlackNotification}  from "../helpers/apiService";
 
 
 
@@ -94,14 +94,12 @@ export default ({navigation}) => {
     const [alertMessage, setAlertMessage] = useState(false);
     const [alertLogo, setAlertLogo] = useState('✅');
     const [buttonMessage, setButtonMessage] = useState('SUBMIT');
-
     const [currentUser, setCurrentUser] = useState({id: "", other: {location: "Ablekuma-Awoshie", zone: "Ablekuma-Awoshie", trashSize: "I DONT KNOW"}})
 
     useEffect(() => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
         const dataGotten = JSON.parse(data);
         setCurrentUser(dataGotten);
-        setLocation(dataGotten.other.location)
       })
     })
 
@@ -110,13 +108,29 @@ export default ({navigation}) => {
         setDatePickerVisibility(true);
     };
 
+    const sendSlackNotification = (data) => {
+      const url = 'https://kelin-weebhook.herokuapp.com/api/notification/slack';
+      const bodyToSend = {
+        data,
+        weebHookUrl: 'https://hooks.slack.com/services/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',
+      }
+
+      axios.post(url, bodyToSend)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+
+    }
+
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
     };
 
     const handleConfirm = (date) => {
         const newDate = moment(date).format().split("T")[0];
-        console.log("A date has been picked: ", newDate);
         setPickupDate(newDate);
         hideDatePicker();
     };
@@ -147,6 +161,8 @@ export default ({navigation}) => {
         setAlertMessage(message)
         setButtonMessage('Success')
         navigation.navigate('All Requests', {name: 'All Requets'})
+        const newMessage = `New Request from Mobile App\n Sender: ${currentUser.other.name} || ${currentUser.phoneNumber}\n Edit Link: https://aneta-dashboard.netlify.app/dashboard/edit-single-request/${data.id}`
+        sendSlackNotification(newMessage)
       })
       .catch((err) => {
         console.log(err.message);
