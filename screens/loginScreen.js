@@ -26,7 +26,7 @@ const LoginScreen =  ({navigation}) => {
         const res =  await axios.post(url, loginBody)
         setButtonText('SUCCESS')
         storeData('USER-DETAILS', JSON.stringify(res.data))
-        RootNavigation.navigate('Home', { name: 'Home' })
+        navigation.navigate('Home', { name: 'Home' })
       } catch (e) {
         console.log(e);
         setButtonText('LOGIN')
@@ -44,9 +44,10 @@ const LoginScreen =  ({navigation}) => {
 
     const handleSignUp = () => {
       console.log("tetteet");
+      navigation.navigate('Home', { name: 'Home' })
     }
     return (
-      <View style={styles.container}>
+      <View style={styles.containerr}>
         <Text style={styles.logo}>Aneta</Text>
         <View style={styles.inputView} >
           <TextInput
@@ -92,7 +93,7 @@ const LoginScreen =  ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerr: {
     flex: 1,
     backgroundColor: '#00b300',
     alignItems: 'center',
