@@ -95,16 +95,17 @@ export default () => {
     const [alertVisibility, setAlertVisibility] =  useState(false)
     const [buttonLoadingStatus, setButtonLoadingStatus] = useState(false);
 
-    const [currentUser, setCurrentUser] = useState({id: "", other: {location: ""}})
+    const [currentUser, setCurrentUser] = useState({id: "", other: {location: "Ablekuma-Awoshie", zone: "Ablekuma-Awoshie", trashSize: "I DONT KNOW"}})
 
-    // AsyncStorage.getItem('USER-DETAILS', (err, data) => {
-    //   const dataGotten = JSON.parse(data);
-    //   setCurrentUser(dataGotten);
-    //   setLocation(dataGotten.other.location);
-    //   setZone(dataGotten.other.zone);
-    // })
-
-
+    useEffect(() => {
+      AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+        const dataGotten = JSON.parse(data);
+        setCurrentUser(dataGotten);
+      })
+      setZone(currentUser.other.zone)
+      setLocation(currentUser.other.location)
+      setTrashSize(currentUser.other.trashSize)
+    })
 
     const showDatePicker = () => {
         Keyboard.dismiss();
