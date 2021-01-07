@@ -5,7 +5,8 @@ import {
   ScrollView,
   Image,
   ImageBackground,
-  Platform
+  Platform,
+  View
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { AsyncStorage } from 'react-native';
@@ -15,6 +16,8 @@ import argonTheme from "../constants/Theme";
 import { HeaderHeight } from "../constants/utils";
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
+import AppBar from '../components/appBar';
+
 
 const Profile = ({navigation}) => {
     const [profile, setProfile] = useState({phoneNumber: "", other: { name: "null", zone: "", location: "", }})
@@ -26,6 +29,9 @@ const Profile = ({navigation}) => {
     }, [profile])
 
     return (
+      <View style={{flex: 1}}>
+      <AppBar name="My Profile" />
+      <View style={{paddingTop: 15}}></View>
       <Block flex style={styles.profile}>
         <Block flex>
           <ImageBackground
@@ -130,6 +136,7 @@ const Profile = ({navigation}) => {
           </ImageBackground>
         </Block>
       </Block>
+    </View>
     );
 }
 

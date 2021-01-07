@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../src/theme';
 
+
 const BASE_SIZE = theme.SIZES.BASE;
 const GRADIENT_BLUE = ['#006400', '#00FF00'];
 const GRADIENT_PINK = ['#006400', '#00FF00'];
@@ -60,6 +61,7 @@ const Dashboard = ({navigation}) => {
   // AsyncStorage.removeItem('USER-DETAILS', (data) => {
   //   console.log("done");
   // })
+
 
 
   const renderHeader = () => {
