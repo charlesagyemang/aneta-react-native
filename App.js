@@ -7,17 +7,11 @@ import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
 import ProfileScreen from './screens/profileScreen';
 import ArticleCover from './screens/articleCoverScreen';
-import LoginScreen from './screens/loginScreen';
-import { navigationRef } from './helpers/RootNavigation';
-
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios'
 import KehillahDialog from './components/kehillahDialog';
-import * as RootNavigation from './helpers/RootNavigation';
-
 // Auth stuff
 import { storeData, retrieveData } from './helpers/localStorage';
-
 const Tab = createBottomTabNavigator();
 
 const MyNavigationDrawer = () => {
@@ -105,7 +99,7 @@ export default function App() {
 
   if (isLoaggedIn) {
     return (
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer>
         <MyNavigationDrawer />
       </NavigationContainer>
     );

@@ -16,9 +16,15 @@ import { HeaderHeight } from "../constants/utils";
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
-const Profile = () => {
+const Profile = ({navigation}) => {
     const [profile, setProfile] = useState({})
-
+    useEffect(() => {
+      AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+        // console.log(data);
+        const info = JSON.parse(data);
+        setProfile(info);
+      })
+    })
 
     return (
       <Block flex style={styles.profile}>
@@ -47,12 +53,14 @@ const Profile = () => {
                     style={{ marginTop: 20, paddingBottom: 24 }}
                   >
                     <Button
+                      onPress={() => navigation.navigate('New Request', {name: 'New Request'})}
                       small
                       style={{ backgroundColor: argonTheme.COLORS.INFO }}
                     >
                       New Req
                     </Button>
                     <Button
+                      onPress={() => navigation.navigate('All Requests', {name: 'All Requests'})}
                       small
                       style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
                     >
@@ -98,10 +106,10 @@ const Profile = () => {
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
-                    test
+                    {profile.other.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                    dummy
+                    {profile.other.zone}, {profile.other.location}, {profile.phoneNumber}
                     </Text>
                   </Block>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
