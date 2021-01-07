@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Keyboard, StyleSheet, Text, View } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -6,6 +6,9 @@ import moment from 'moment';
 import KehillahDialog from '../components/kehillahDialog';
 import AppBar from '../components/appBar';
 import BaseDropDown from '../components/baseDropDown';
+import axios from 'axios';
+import { AsyncStorage } from 'react-native';
+
 
 
 export default () => {
@@ -89,7 +92,15 @@ export default () => {
     const [zone, setZone]     = useState('La-Teshie-Nungua Zone');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [alertVisibility, setAlertVisibility] =  useState(false)
-    const [buttonLoadingStatus, setButtonLoadingStatus] = useState(false)
+    const [buttonLoadingStatus, setButtonLoadingStatus] = useState(false);
+
+    const [currentUser, setCurrentUser] = useState({id: "", other: {location: ""}})
+
+    AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+      setCurrentUser(JSON.parse(data));
+      setLocation(currentUser.other.location)
+    })
+
 
 
     const showDatePicker = () => {
@@ -109,16 +120,24 @@ export default () => {
     };
 
     const handleMakeRequest = () => {
-        if(pickupDate.length > 0 && location.length > 0 && trashSize.length > 0){
-            setAlertVisibility(true)
-        } else {
-            setAlertVisibility(true)
-        }
+        const RANDOM_NUMBER = Math.floor(1000000 + (Math.random() * 9000000));
         const bodyToSend = {
-            pickupDate,
-            location,
-            trashSize
+          id: `18${RANDOM_NUMBER}00`,
+          paymentMethod: '',
+          requestStatus: 'CREATED',
+          trashSize: trashSize,
+          requestType: 'ONE_OFF',
+          requester: currentUser.id,
+          date: pickupDate,
+          paymentStatus: 'NOT_PAID',
+          other: {
+            proposedDate: pickupDate,
+            source: 'MOBILE-APP',
+            status: 'ACTIVE',
+            proposedLocation: location,
+          },
         }
+
 
         console.log(bodyToSend);
     }
