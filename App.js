@@ -8,6 +8,7 @@ import AllRequestsScreen from './screens/allRequestsScreen';
 import ProfileScreen from './screens/profileScreen';
 import ArticleCover from './screens/articleCoverScreen';
 import LoginScreen from './screens/loginScreen';
+import { navigationRef } from './helpers/RootNavigation';
 
 // Auth stuff
 import { storeData, retrieveData } from './helpers/localStorage';
@@ -60,7 +61,7 @@ export default function App() {
 
   if (isLoaggedIn) {
     return (
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <MyNavigationDrawer />
       </NavigationContainer>
     );

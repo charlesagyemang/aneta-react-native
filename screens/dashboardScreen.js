@@ -6,6 +6,7 @@ import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import { AreaChart } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
+import { AsyncStorage } from 'react-native';
 
 // galio components
 import {
@@ -57,6 +58,10 @@ const cards = [
 const statsTitles = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
 
 const Dashboard = ({navigation}) => {
+
+  // AsyncStorage.removeItem('USER-DETAILS', (data) => {
+  //   console.log("done");
+  // })
 
   const renderHeader = () => {
     return(

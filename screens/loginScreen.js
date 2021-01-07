@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import { storeData } from '../helpers/localStorage'
 import axios from 'axios'
 import KehillahDialog from '../components/kehillahDialog';
+import * as RootNavigation from '../helpers/RootNavigation';
 
 
 
-const LoginScreen =  ({ navigation }) => {
+
+const LoginScreen =  ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [buttonText, setButtonText] = useState('LOGIN')
   const [pin, setPin] = useState('')
@@ -23,8 +25,8 @@ const LoginScreen =  ({ navigation }) => {
         setButtonText('Authenticating.....')
         const res =  await axios.post(url, loginBody)
         setButtonText('SUCCESS')
-        navigation.navigate('Home', { name: 'Home' })
-        // storeData('USER-DETAILS', JSON.stringify(res.data))
+        storeData('USER-DETAILS', JSON.stringify(res.data))
+        RootNavigation.navigate('Home', { name: 'Home' })
       } catch (e) {
         console.log(e);
         setButtonText('LOGIN')
@@ -39,6 +41,10 @@ const LoginScreen =  ({ navigation }) => {
       setErrorMessage("Wrong PIN please check and try again. Your Pin should be only 4 digits.")
     }
   }
+
+    const handleSignUp = () => {
+      console.log("tetteet");
+    }
     return (
       <View style={styles.container}>
         <Text style={styles.logo}>Aneta</Text>
@@ -75,8 +81,10 @@ const LoginScreen =  ({ navigation }) => {
           onPress={handleSignIn}
         >
           <Text style={styles.loginText}>{buttonText}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
+        </TouchableOpacity >
+        <TouchableOpacity
+        onPress={handleSignUp}
+        >
           <Text style={styles.loginText}>Signup</Text>
         </TouchableOpacity>
       </View>
