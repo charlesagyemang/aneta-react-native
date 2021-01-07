@@ -17,14 +17,13 @@ const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
 const Profile = ({navigation}) => {
-    const [profile, setProfile] = useState({})
+    const [profile, setProfile] = useState({phoneNumber: "", other: { name: "null", zone: "", location: "", }})
     useEffect(() => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
-        // console.log(data);
         const info = JSON.parse(data);
         setProfile(info);
       })
-    })
+    }, [profile])
 
     return (
       <Block flex style={styles.profile}>

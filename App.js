@@ -6,7 +6,6 @@ import HomeScreen from './screens/dashboardScreen';
 import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
 import ProfileScreen from './screens/profileScreen';
-import ArticleCover from './screens/articleCoverScreen';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios'
 import KehillahDialog from './components/kehillahDialog';
