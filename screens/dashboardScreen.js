@@ -7,14 +7,12 @@ import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import { AreaChart } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 import { AsyncStorage } from 'react-native';
-
 // galio components
 import {
   Button, Block, Text, NavBar,
 } from 'galio-framework';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../src/theme';
-import ArButton from '../components/Button'
 
 const BASE_SIZE = theme.SIZES.BASE;
 const GRADIENT_BLUE = ['#006400', '#00FF00'];

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Keyboard, StyleSheet, Text, View, Platform } from 'react-native';
+import { Keyboard, StyleSheet, Text, View } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';

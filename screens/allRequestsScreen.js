@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, SafeAreaView, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
 import axios from 'axios'
 import theme from '../src/theme';
 import AppBar from '../components/appBar';
