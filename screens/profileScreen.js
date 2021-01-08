@@ -20,7 +20,7 @@ import AppBar from '../components/appBar';
 
 
 const Profile = ({navigation}) => {
-    const [profile, setProfile] = useState({phoneNumber: "", other: { name: "null", zone: "", location: "", }})
+    const [profile, setProfile] = useState({phoneNumber: "", other: { name: "Loading....", zone: "please Wait...", location: "....", }})
     useEffect(() => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
         const info = JSON.parse(data);
@@ -28,10 +28,19 @@ const Profile = ({navigation}) => {
       })
     }, [profile])
 
+    const handleSignOut = () => {
+      console.log("sign Me out");
+        AsyncStorage.removeItem('USER-DETAILS', (err, data) => {
+        console.log("Done");
+        navigation.navigate('Home', {name: 'Home'});
+        setProfile({phoneNumber: "", other: { name: "Loading....", zone: "please Wait...", location: "....", }})
+      })
+    }
+
     return (
       <View style={{flex: 1}}>
       <AppBar name="My Profile" />
-      <View style={{paddingTop: 15}}></View>
+      <View style={{paddingTop: 10}}></View>
       <Block flex style={styles.profile}>
         <Block flex>
           <ImageBackground
@@ -126,9 +135,15 @@ const Profile = ({navigation}) => {
                       color="#525F7F"
                       style={{ textAlign: "center" }}
                     >
-                      An artist of considerable range, Jessica name taken by
-                      Melbourne …
+                      Aneta technologies is equiped to aid you with your trash by picking it up for you when you simoply request. Call us on 0277119919 for more info
                     </Text>
+                    <Button
+                      onPress={handleSignOut}
+                      small
+                      style={{ backgroundColor: "red" }}
+                    >
+                      Sign Out
+                    </Button>
                   </Block>
                 </Block>
               </Block>
