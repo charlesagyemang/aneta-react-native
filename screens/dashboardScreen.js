@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios'
 import {
   StyleSheet, ScrollView, Platform,
 } from 'react-native';
@@ -15,45 +16,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../src/theme';
 
 
+
 const BASE_SIZE = theme.SIZES.BASE;
 const GRADIENT_BLUE = ['#006400', '#00FF00'];
 const GRADIENT_PINK = ['#006400', '#00FF00'];
 const COLOR_WHITE = theme.COLORS.WHITE;
 const COLOR_GREY = theme.COLORS.MUTED; // '#D8DDE1';
 
-// mock data
-const cards = [
-  {
-    title: 'All Requests',
-    subtitle: '15 completed tasks',
-    icon: 'ios-list',
-    iconFamily: 'Galio',
-    name: 'All Requests',
-  },
 
-  {
-    title: 'Create A New Request',
-    subtitle: '15 completed tasks',
-    icon: 'ios-add-circle',
-    iconFamily: 'Galio',
-    name: 'New Request',
-  },
-  {
-    title: 'Track A Pickup',
-    subtitle: '15 completed tasks',
-    icon: 'ios-trash',
-    iconFamily: 'Galio',
-    name: 'New Request',
-  },
-
-  {
-    title: 'Profile',
-    subtitle: '15 completed tasks',
-    icon: 'ios-people',
-    iconFamily: 'Galio',
-    name: 'Profile',
-  },
-];
 const statsTitles = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
 
 const Dashboard = ({navigation}) => {
@@ -61,7 +31,68 @@ const Dashboard = ({navigation}) => {
   // AsyncStorage.removeItem('USER-DETAILS', (data) => {
   //   console.log("done");
   // })
+  const [reqStat, setReqStat] = useState({todaysRequest: [], thisWeeksRequest: [], thisMonthsRequest: [], requests: [{id: "none"}]})
+  const [token, setToken] = useState('');
 
+  const todReq = reqStat.todaysRequest.length
+  const twReq = reqStat.thisWeeksRequest.length
+  const tmReq = reqStat.thisMonthsRequest.length
+  const allTime = reqStat.requests.length
+
+  const mostRecent = reqStat.requests[0].id
+  const completed = reqStat.requests.filter(x => x.requestStatus === "COMPLETED").length;
+  const created = reqStat.requests.filter(x => x.requestStatus === "CREATED").length;
+
+  useEffect(() => {
+    AsyncStorage.getItem('USER-DETAILS', (err, data) => {
+      setToken(JSON.parse(data).id);
+      // console.log("heyy");
+      const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${JSON.parse(data).id}`
+      axios.get(url)
+      .then((resp) => {
+        setReqStat(resp.data);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      })
+
+    })
+
+  }, []);
+
+  // mock data
+  const cards = [
+    {
+      title: 'All Requests',
+      subtitle: `Today: ${todReq} This Week: ${twReq} All Time: ${allTime}`,
+      icon: 'ios-list',
+      iconFamily: 'Galio',
+      name: 'All Requests',
+    },
+
+    {
+      title: 'Create A New Request',
+      subtitle: `Created: ${created} Completed: ${completed}`,
+      icon: 'ios-add-circle',
+      iconFamily: 'Galio',
+      name: 'New Request',
+    },
+    {
+      title: 'Track A Pickup',
+      subtitle: `Most Recent Req: ${mostRecent}`,
+      icon: 'ios-trash',
+      iconFamily: 'Galio',
+      name: 'New Request',
+    },
+
+    {
+      title: 'Profile',
+      subtitle: 'Check out Your Profile',
+      icon: 'ios-people',
+      iconFamily: 'Galio',
+      name: 'Profile',
+    },
+  ];
 
 
   const renderHeader = () => {

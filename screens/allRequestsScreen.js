@@ -27,27 +27,29 @@ export default () => {
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
       setToken(JSON.parse(data).id);
+      const url2 = 'https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json'
+      const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${JSON.parse(data).id}`
+
+      axios.get(url)
+      .then((resp) => {
+        // console.log(resp.data);
+        const articles = resp.data.requests
+        setIsNotEmpty(resp.data.requests.length > 0)
+        setData(articles);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      })
+      .finally(() => {
+        setLoading(false)
+      })
     })
     // AsyncStorage.removeItem('USER-DETAILS', (err, data) => {
     //   console.log(data);
     // })
 
-    const url2 = 'https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json'
-    const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${token}`
 
-    axios.get(url)
-    .then((resp) => {
-      const articles = resp.data.requests
-      setIsNotEmpty(resp.data.requests.length > 0)
-      setData(articles);
-    })
-    .catch((e) => {
-      console.log(e.message);
-    })
-    .finally(() => {
-      setLoading(false)
-    })
-  })
+  }, [])
 
   // console.log(token);
 

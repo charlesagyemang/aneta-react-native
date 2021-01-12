@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import axios from 'axios'
 import {
   StyleSheet,
   Dimensions,
@@ -21,12 +22,25 @@ import AppBar from '../components/appBar';
 
 const Profile = ({navigation}) => {
     const [profile, setProfile] = useState({phoneNumber: "", other: { name: "Loading....", zone: "please Wait...", location: "....", }})
+    const [reqStat, setReqStat] = useState({todaysRequest: [], thisWeeksRequest: [], thisMonthsRequest: [], requests: [{id: "none"}]})
+
     useEffect(() => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
         const info = JSON.parse(data);
         setProfile(info);
+
+        const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${info.id}`
+        axios.get(url)
+        .then((resp) => {
+          setReqStat(resp.data);
+        })
+        .catch((e) => {
+          console.log(e.message);
+        })
+
       })
-    }, [profile])
+
+    }, [])
 
     const handleSignOut = () => {
       console.log("sign Me out");
@@ -91,7 +105,7 @@ const Profile = ({navigation}) => {
                       >
                         All Req
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>12 </Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>{reqStat.requests.length} </Text>
                     </Block>
                     <Block middle>
                       <Text
@@ -102,7 +116,7 @@ const Profile = ({navigation}) => {
                       >
                         Today
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>3  </Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>{reqStat.todaysRequest.length}  </Text>
                     </Block>
                     <Block middle>
                       <Text
@@ -113,7 +127,7 @@ const Profile = ({navigation}) => {
                       >
                         This Month
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>  3  </Text>
+                      <Text size={12} color={argonTheme.COLORS.TEXT}>  {reqStat.thisMonthsRequest.length}  </Text>
                     </Block>
                   </Block>
                 </Block>
