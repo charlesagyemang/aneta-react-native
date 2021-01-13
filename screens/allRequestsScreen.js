@@ -78,7 +78,7 @@ export default () => {
          >
            <Icon
              size={BASE_SIZE * 1.8}
-             name="ios-trash"
+             name="ios-git-pull-request"
              color={COLOR_WHITE}
              family={props.iconFamily}
            />
