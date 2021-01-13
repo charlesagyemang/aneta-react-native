@@ -6,6 +6,7 @@ import HomeScreen from './screens/dashboardScreen';
 import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
 import ProfileScreen from './screens/profileScreen';
+import SettingsScreen from './screens/settingsScreen';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios'
 import KehillahDialog from './components/kehillahDialog';
@@ -30,6 +31,8 @@ const MyNavigationDrawer = () => {
               iconName = focused ? 'ios-list' : 'ios-list';
             } else if (route.name === 'Profile'){
               iconName = focused ? 'ios-contact' : 'ios-contact';
+            } else if (route.name === 'Settings'){
+              iconName = focused ? 'ios-cog' : 'ios-cog';
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -43,6 +46,7 @@ const MyNavigationDrawer = () => {
         <Tab.Screen name="New Request" component={CreateRequest} />
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
   )
 }
