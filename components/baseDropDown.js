@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default (props) => {
     const placeholder = {
-        label: 'Select a sport...',
+        label: 'Select an option...',
         value: null,
         color: '#9EA0A4',
     };
