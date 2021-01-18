@@ -20,7 +20,7 @@ export default () => {
 
   return(
     <View style={{flex: 1}}>
-    <AppBar name="Create A Request" />
+    <AppBar name="Settings" />
     <ScrollView style={{flex: 1, backgroundColor: (Platform.OS === 'ios') ? colors.iosSettingsBackground : colors.white}}>
         <SettingsCategoryHeader title={'My Account'} textStyle={(Platform.OS === 'android') ? {color: colors.monza} : null}/>
         <SettingsDividerLong android={false}/>
