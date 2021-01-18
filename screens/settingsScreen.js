@@ -25,6 +25,7 @@ export default () => {
         <SettingsCategoryHeader title={'My Account'} textStyle={(Platform.OS === 'android') ? {color: colors.monza} : null}/>
         <SettingsDividerLong android={false}/>
         <SettingsEditText
+            disabled={true}
             title="Username"
             dialogDescription={'Enter your username.'}
             valuePlaceholder="..."
@@ -40,8 +41,8 @@ export default () => {
         />
         <SettingsDividerShort/>
         <SettingsPicker
-            title="Gender"
-            dialogDescription={'Choose your gender.'}
+            title="Choose App theme"
+            dialogDescription={'Choose your color.'}
             possibleValues={[
                 {label: '...', value: ''},
                 {label: 'male', value: 'male'},
