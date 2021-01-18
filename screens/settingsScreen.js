@@ -60,7 +60,7 @@ export default () => {
 
         <SettingsSwitch
             title={'Allow Push Notifications'}
-            onSaveValue={value => setAllowPushNotifications(value)}
+            onSaveValue={value => setAllowPushNotifications(!allowPushNotifications)}
             value={allowPushNotifications}
             thumbTintColor={(allowPushNotifications) ? colors.switchEnabled : colors.switchDisabled}
         />
