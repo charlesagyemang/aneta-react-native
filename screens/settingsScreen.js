@@ -25,44 +25,41 @@ export default () => {
         <SettingsCategoryHeader title={'My Account'} textStyle={(Platform.OS === 'android') ? {color: colors.monza} : null}/>
         <SettingsDividerLong android={false}/>
         <SettingsEditText
-            disabled={true}
-            title="Username"
-            dialogDescription={'Enter your username.'}
-            valuePlaceholder="..."
-            negativeButtonTitle={'Cancel'}
-            buttonRightTitle={'Save'}
-            onSaveValue={value => setUsername(value) }
-            value={username}
-            dialogAndroidProps={{
-                widgetColor: colors.monza,
-                positiveColor: colors.monza,
-                negativeColor: colors.monza,
-            }}
-        />
+           disabled={true}
+           title="Username"
+           dialogDescription={"Enter your username."}
+           valuePlaceholder="..."
+           negativeButtonTitle={"Cancel"}
+           buttonRightTitle={"Save"}
+           onValueChange={value => setUsername(value)}
+           value={username}
+         />
         <SettingsDividerShort/>
         <SettingsPicker
-            title="Choose App theme"
-            dialogDescription={'Choose your color.'}
-            possibleValues={[
-                {label: '...', value: ''},
-                {label: 'male', value: 'male'},
-                {label: 'female', value: 'female'},
-                {label: 'other', value: 'other'}
-            ]}
-            negativeButtonTitle={'Cancel'}
-            buttonRightTitle={'Save'}
-            onSaveValue={value => setGender(value) }
-            value={gender}
-            styleModalButtonsText={{color: colors.monza}}
-        />
+         title="Select theme"
+         dialogDescription={"Choose your color."}
+         options={[
+           { label: "green", value: "green" },
+           { label: "blue", value: "blue" },
+           { label: "violet", value: "violet" }
+         ]}
+         onValueChange={value => setGender(value)}
+         value={gender}
+         styleModalButtonsText={{ color: colors.monza }}
+         />
 
         <Text></Text>
 
+
+
         <SettingsSwitch
-            title={'Allow Push Notifications'}
-            onSaveValue={value => setAllowPushNotifications(!allowPushNotifications)}
-            value={allowPushNotifications}
-            thumbTintColor={(allowPushNotifications) ? colors.switchEnabled : colors.switchDisabled}
+          title={"Allow Push Notifications"}
+          onValueChange={value => setAllowPushNotifications(value) }
+          value={allowPushNotifications}
+          trackColor={{
+            true: colors.switchEnabled,
+            false: colors.switchDisabled,
+          }}
         />
 
       <Text></Text>
@@ -75,11 +72,9 @@ export default () => {
 }
 
 const colors = {
-  iosSettingsBackground: 'rgb(235,235,241)',
-  white: '#FFFFFF',
-  monza: '#C70039',
-  switchEnabled: (Platform.OS === 'android') ? '#C70039' : null,
-  switchDisabled: (Platform.OS === 'android') ? '#efeff3' : null,
-  switchOnTintColor: (Platform.OS === 'android') ? 'rgba(199, 0, 57, 0.6)' : null,
-  blueGem: '#27139A',
+  white: "#FFFFFF",
+  monza: "#C70039",
+  switchEnabled: "#C70039",
+  switchDisabled: "#efeff3",
+  blueGem: "#27139A",
 };
