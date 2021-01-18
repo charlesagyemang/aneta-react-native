@@ -54,6 +54,7 @@ const MyNavigationDrawer = () => {
 export default function App() {
 
   const [isLoaggedIn, setIsLoggedIn] = useState(false)
+  const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [buttonText, setButtonText] = useState('LOGIN')
   const [pin, setPin] = useState('')
@@ -101,22 +102,34 @@ export default function App() {
     setSignUpClicked(false)
   }
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
+
+    const signUpUrl = 'https://kelin-weebhook.herokuapp.com/api/user/'
 
     const signUpBody = {
       phoneNumber,
       pin,
       role: 'user',
       other:{
+        name,
         zone,
         location,
+        signUpSource: 'Mobile App',
       }
     }
 
-    const dataIsValid = signUpBody.phoneNumber.length === 10 && signUpBody.pin.length === 4 && signUpBody.other.zone.length > 0 && signUpBody.other.location.length > 0
+    const dataIsValid = signUpBody.other.name.length > 0 && signUpBody.phoneNumber.length === 10 && signUpBody.pin.length === 4 && signUpBody.other.zone.length > 0 && signUpBody.other.location.length > 0
     setInfoMessageSignUp('Creating Account Please Wait.....')
     if (dataIsValid) {
       console.log("==VALID==", signUpBody);
+      try {
+        const {data} = await axios.post(signUpUrl, signUpBody);
+        console.log("====DATA===", data);
+        storeData('USER-DETAILS', JSON.stringify(data))
+        setIsLoggedIn(true)
+      } catch (e) {
+        setInfoMessageSignUp('An error occured while trying to sign up please try again later. Thank you')
+      }
     } else {
       setInfoMessageSignUp('There was an error trying to create your account. Phone Number Should be 10 digits, PIn should be 4 digits, Exact Location Should Not Be empty. Please Check and try again')
       console.log("==INVALID==", signUpBody);
@@ -132,7 +145,7 @@ export default function App() {
       await setIsLoggedIn(status)
     }
     getLoginDetails()
-  })
+  }, [])
 
   if (isLoaggedIn) {
     return (
@@ -180,6 +193,14 @@ export default function App() {
               placeholder="Enter Your Exact Location"
               placeholderTextColor="#003f5c"
               onChangeText={location => setLocation(pin)}/>
+          </View>
+
+          <View style={styles.inputView} >
+            <TextInput
+              style={styles.inputText}
+              placeholder="Enter Your Full Name Here"
+              placeholderTextColor="#003f5c"
+              onChangeText={name => setName(name)}/>
           </View>
 
 

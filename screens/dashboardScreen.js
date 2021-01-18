@@ -36,17 +36,16 @@ const Dashboard = ({navigation}) => {
 
   const todReq = reqStat.todaysRequest.length
   const twReq = reqStat.thisWeeksRequest.length
-  const tmReq = reqStat.thisMonthsRequest.length
-  const allTime = reqStat.requests.length
+  const tmReq = reqStat.thisMonthsRequest.length || 0
+  const allTime = reqStat.requests.length || 0
 
-  const mostRecent = reqStat.requests[0].id
+  const mostRecent = reqStat.requests[0] ? reqStat.requests[0].id : 'NAN'
   const completed = reqStat.requests.filter(x => x.requestStatus === "COMPLETED").length;
   const created = reqStat.requests.filter(x => x.requestStatus === "CREATED").length;
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
       setToken(JSON.parse(data).id);
-      // console.log("heyy");
       const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${JSON.parse(data).id}`
       axios.get(url)
       .then((resp) => {
