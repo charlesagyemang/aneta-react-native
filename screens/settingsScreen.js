@@ -157,16 +157,15 @@ export default () => {
         />
 
         <SettingsPicker
-         title="Select theme"
-         dialogDescription={"Choose your color."}
-         options={[
-           { label: "green", value: "green" },
-           { label: "blue", value: "blue" },
-           { label: "violet", value: "violet" }
-         ]}
-         onValueChange={value => setGender(value)}
-         value={gender}
-         styleModalButtonsText={{ color: colors.monza }}
+           title="Select theme"
+           dialogDescription={"Choose your color."}
+           options={[
+             { label: "green", value: "green" },
+             { label: "blue", value: "blue" },
+             { label: "violet", value: "violet" }
+           ]}
+           onValueChange={value => setGender(value)}
+           value={gender}
          />
          <SettingsDividerShort/>
         <SettingsSwitch
