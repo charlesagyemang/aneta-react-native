@@ -8,9 +8,7 @@ import AppBar from '../components/appBar';
 import BaseDropDown from '../components/baseDropDown';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-// import  {sendSlackNotification}  from "../helpers/apiService";
-
-
+import theme from '../src/theme';
 
 
 export default ({navigation}) => {
@@ -237,11 +235,6 @@ export default ({navigation}) => {
     );
 };
 
-const theme = {
-    colors: {
-        primary: "green"
-    }
-}
 
 const styles = StyleSheet.create({
     root: {
@@ -272,7 +265,7 @@ const styles = StyleSheet.create({
         margin: 10,
         marginTop: 30,
         padding: 10,
-        backgroundColor: 'green'
+        backgroundColor: theme.COLORS_TWO.PRIMARY
     },
     text: {
         margin:10,

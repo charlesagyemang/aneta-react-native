@@ -12,6 +12,8 @@ import axios from 'axios'
 import KehillahDialog from './components/kehillahDialog';
 import BaseDropDown from './components/baseDropDown';
 import {zoneList} from './constants/utils';
+import theme from './src/theme';
+
 
 // Auth stuff
 import { storeData, retrieveData } from './helpers/localStorage';
@@ -38,8 +40,8 @@ const MyNavigationDrawer = () => {
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'green',
-          inactiveTintColor: 'gray',
+          activeTintColor: theme.COLORS_TWO.PRIMARY,
+          inactiveTintColor: theme.COLORS_TWO.DEFAULT,
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />

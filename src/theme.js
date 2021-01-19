@@ -27,7 +27,16 @@ const SIZES = {
   OPACITY: 0.8,
 };
 
+const COLORS_TWO = {
+  DEFAULT: '#172B4D',
+  PRIMARY: '#5E72E4',
+  SECONDARY: '#F7FAFC',
+  GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+  GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+}
+
 export default {
   COLORS,
   SIZES,
+  COLORS_TWO
 };

@@ -9,11 +9,13 @@ import {
   Platform,
   View
 } from "react-native";
-import { Block, Text, theme } from "galio-framework";
+import { Block, Text } from "galio-framework";
 import { AsyncStorage } from 'react-native';
 import  Button  from "../components/Button";
 import Images from "../constants/Images";
 import argonTheme from "../constants/Theme";
+import theme from '../src/theme';
+
 import { HeaderHeight } from "../constants/utils";
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
@@ -83,7 +85,7 @@ const Profile = ({navigation}) => {
                     <Button
                       onPress={() => navigation.navigate('New Request', {name: 'New Request'})}
                       small
-                      style={{ backgroundColor: argonTheme.COLORS.INFO }}
+                      style={{ backgroundColor: theme.COLORS_TWO.PRIMARY }}
                     >
                       New Req
                     </Button>
@@ -144,13 +146,7 @@ const Profile = ({navigation}) => {
                     <Block style={styles.divider} />
                   </Block>
                   <Block middle>
-                    <Text
-                      size={16}
-                      color="#525F7F"
-                      style={{ textAlign: "center" }}
-                    >
-                      Aneta technologies is equiped to aid you with your trash by picking it up for you when you simoply request. Call us on 0277119919 for more info
-                    </Text>
+
                     <Button
                       onPress={handleSignOut}
                       small

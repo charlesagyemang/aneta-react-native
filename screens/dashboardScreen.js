@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios'
 import {
-  StyleSheet, ScrollView, Platform,
+  StyleSheet, ScrollView, Platform, View, TouchableOpacity, AsyncStorage
 } from 'react-native';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import { AreaChart } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
-import { AsyncStorage } from 'react-native';
 // galio components
 import {
   Button, Block, Text, NavBar,
 } from 'galio-framework';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../src/theme';
+import AppBar from '../components/appBar';
 
 
 
@@ -118,8 +118,8 @@ const Dashboard = ({navigation}) => {
     return (
         <Defs key="gradient">
           <LinearGradient id="gradient" x1="0" y="0%" x2="0%" y2="100%">
-            <Stop offset="0%" stopColor={theme.COLORS.RED} />
-            <Stop offset="100%" stopColor={theme.COLORS.INFO} />
+            <Stop offset="0%" stopColor={theme.COLORS_TWO.PRIMARY} />
+            <Stop offset="100%" stopColor={theme.COLORS_TWO.SECONDARY} />
           </LinearGradient>
         </Defs>
       );
@@ -164,45 +164,46 @@ const Dashboard = ({navigation}) => {
   }
 
   const renderCard = (props, index) => {
-    const gradientColors = index % 2 ? GRADIENT_BLUE : GRADIENT_PINK;
+    const gradientColors = index % 2 ? theme.COLORS_TWO.GRADIENT_VARIANT_ONE : theme.COLORS_TWO.GRADIENT_VARIANT_TWO;
 
     return (
-      <Block row center card shadow space="between" style={styles.card} key={props.title}>
-        <Gradient
-          start={[0.45, 0.45]}
-          end={[0.90, 0.90]}
-          colors={gradientColors}
-          style={[styles.gradient, styles.left]}
-        >
-          <Icon
-            size={BASE_SIZE * 1.8}
-            name={props.icon}
-            color={COLOR_WHITE}
-            family={props.iconFamily}
-          />
-        </Gradient>
+      <TouchableOpacity
+        key={props.title}
+        onPress={() => navigation.navigate(props.name, { name: props.name })}
+      >
+        <Block row center card shadow space="between" style={styles.card} >
+          <Gradient
+            start={[0.45, 0.45]}
+            end={[0.90, 0.90]}
+            colors={gradientColors}
+            style={[styles.gradient, styles.left]}
+          >
+            <Icon
+              size={BASE_SIZE * 1.8}
+              name={props.icon}
+              color={COLOR_WHITE}
+              family={props.iconFamily}
+            />
+          </Gradient>
 
-        <Block flex>
-          <Text size={BASE_SIZE * 1.125}>{props.title}</Text>
-          <Text size={BASE_SIZE * 0.875} muted>{props.subtitle}</Text>
+          <Block flex>
+            <Text size={BASE_SIZE * 1.125}>{props.title}</Text>
+            <Text size={BASE_SIZE * 0.875} muted>{props.subtitle}</Text>
+          </Block>
         </Block>
-        <Button style={styles.right} onPress={() => navigation.navigate(props.name, { name: props.name })}>
-          <Icon size={BASE_SIZE} name="ios-arrow-forward" family="Galio" color={COLOR_GREY} />
-        </Button>
-      </Block>
+      </TouchableOpacity>
     );
   }
 
   const renderCards = () => cards.map((card, index) => renderCard(card, index))
 
   return (
-    <Block safe flex>
-    {renderHeader()}
-       {renderStats()}
-      <ScrollView style={{ flex: 1 }}>
-        {renderCards()}
-      </ScrollView>
-    </Block>
+    <View style={{flex: 1}}>
+      <AppBar name="Create A Request" />
+        <ScrollView  style={{marginTop: 20}}>
+          {renderCards()}
+        </ScrollView>
+    </View>
   );
 }
 

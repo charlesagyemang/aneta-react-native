@@ -66,7 +66,7 @@ export default () => {
 
 
    const renderCard = (props, index) => {
-     const gradientColors = index % 2 ? GRADIENT_BLUE : GRADIENT_PINK;
+     const gradientColors = index % 2 ? theme.COLORS_TWO.GRADIENT_VARIANT_ONE : theme.COLORS_TWO.GRADIENT_VARIANT_TWO;
 
      return (
        <Block row center card shadow space="between" style={styles.card} key={props.id}>
