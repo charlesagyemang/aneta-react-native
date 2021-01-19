@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView, TextInput } from 'react-native';
 import axios from 'axios'
 import theme from '../src/theme';
 import AppBar from '../components/appBar';
@@ -23,6 +23,7 @@ export default () => {
   const [isNotEmpty, setIsNotEmpty] = useState(null);
   const [data, setData] = useState([]);
   const [token, setToken] = useState('');
+  const [firstQuery, setFirstQuery] = useState('');
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -44,11 +45,6 @@ export default () => {
         setLoading(false)
       })
     })
-    // AsyncStorage.removeItem('USER-DETAILS', (err, data) => {
-    //   console.log(data);
-    // })
-
-
   }, [])
 
   // console.log(token);
@@ -99,7 +95,15 @@ export default () => {
     return(
         <View style={{flex: 1}}>
             <AppBar name="All Requests" />
+
             <View style={styles.container}>
+            <View style={styles.inputView} >
+              <TextInput
+                style={styles.inputText}
+                placeholder="Search Requests"
+                placeholderTextColor= {theme.COLORS.WHITE}
+                onChangeText={pin => console.log("pin")}/>
+            </View>
                 <View style={styles.newStack}>
                 { isLoading ? <Text>Loading...</Text> : <Text></Text> }
                 { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
@@ -123,7 +127,7 @@ const styles = StyleSheet.create({
       height: "80%"
     },
     newStack:{
-      height: "10%"
+      height: "5%"
     },
     card: {
       borderColor: 'transparent',
@@ -156,5 +160,20 @@ const styles = StyleSheet.create({
       borderRadius: BASE_SIZE * 1.6,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    inputView:{
+      marginTop: "5%",
+      marginLeft: "10%",
+      width:"80%",
+      backgroundColor: theme.COLORS_TWO.PRIMARY,
+      borderRadius:25,
+      height:50,
+      marginBottom:20,
+      justifyContent:"center",
+      padding:20
+    },
+    inputText:{
+      height:50,
+      color:"white"
     },
 });
