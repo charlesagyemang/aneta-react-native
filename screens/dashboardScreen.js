@@ -12,25 +12,30 @@ import {
   Button, Block, Text, NavBar,
 } from 'galio-framework';
 import Icon from 'react-native-vector-icons/Ionicons';
-import theme from '../src/theme';
+import theme2 from '../src/theme';
 import AppBar from '../components/appBar';
 
 
 
-const BASE_SIZE = theme.SIZES.BASE;
+const BASE_SIZE = theme2.SIZES.BASE;
 const GRADIENT_BLUE = ['#006400', '#00FF00'];
 const GRADIENT_PINK = ['#006400', '#00FF00'];
-const COLOR_WHITE = theme.COLORS.WHITE;
-const COLOR_GREY = theme.COLORS.MUTED; // '#D8DDE1';
+const COLOR_WHITE = theme2.COLORS.WHITE;
+const COLOR_GREY = theme2.COLORS.MUTED; // '#D8DDE1';
 
 
 const statsTitles = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
 
 const Dashboard = ({navigation}) => {
-
-  // AsyncStorage.removeItem('USER-DETAILS', (data) => {
-  //   console.log("done");
-  // })
+  const [color, setColor] = useState('')
+  const [theme, setTheme] = useState({
+    NAME: 'default',
+    DEFAULT: '#172B4D',
+    PRIMARY: '#5E72E4',
+    SECONDARY: '#F7FAFC',
+    GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+    GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+  });
   const [reqStat, setReqStat] = useState({todaysRequest: [], thisWeeksRequest: [], thisMonthsRequest: [], requests: [{id: "none"}]})
   const [token, setToken] = useState('');
 
@@ -54,10 +59,14 @@ const Dashboard = ({navigation}) => {
       .catch((e) => {
         console.log(e.message);
       })
-
-    })
-
-  }, []);
+    });
+    AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
+      const datum = JSON.parse(data);
+      setColor(datum.NAME);
+      setTheme(datum);
+      // console.log("DATAAAAA", datum);
+    });
+  }, [theme]);
 
   // mock data
   const cards = [
@@ -99,17 +108,17 @@ const Dashboard = ({navigation}) => {
         <NavBar
           title="Dashboard"
           onLeftPress={() => props.handlePressHeart}
-          leftIconColor={theme.COLORS.MUTED}
+          leftIconColor={theme2.COLORS.MUTED}
           right={(
             <Button
               color="transparent"
               style={styles.settings}
               onPress={() => console.log('Hey There')}
             >
-              <Icon size={BASE_SIZE} name="ios-heart" family="font-awesome" color={theme.COLORS.MUTED} />
+              <Icon size={BASE_SIZE} name="ios-heart" family="font-awesome" color={theme2.COLORS.MUTED} />
             </Button>
           )}
-          style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
+          style={Platform.OS === 'android' ? { marginTop: theme2.SIZES.BASE } : null}
         />
       )
   }
@@ -118,8 +127,8 @@ const Dashboard = ({navigation}) => {
     return (
         <Defs key="gradient">
           <LinearGradient id="gradient" x1="0" y="0%" x2="0%" y2="100%">
-            <Stop offset="0%" stopColor={theme.COLORS_TWO.PRIMARY} />
-            <Stop offset="100%" stopColor={theme.COLORS_TWO.SECONDARY} />
+            <Stop offset="0%" stopColor={theme2.COLORS_TWO.PRIMARY} />
+            <Stop offset="100%" stopColor={theme2.COLORS_TWO.SECONDARY} />
           </LinearGradient>
         </Defs>
       );
@@ -157,15 +166,14 @@ const Dashboard = ({navigation}) => {
           <GradientStats />
         </AreaChart>
         <Block row space="evenly" style={{ marginTop: BASE_SIZE }}>
-          {statsTitles.map(title => <Text key={title} size={theme.SIZES.FONT * 0.85} muted>{title}</Text>)}
+          {statsTitles.map(title => <Text key={title} size={theme2.SIZES.FONT * 0.85} muted>{title}</Text>)}
         </Block>
       </Block>
     );
   }
 
   const renderCard = (props, index) => {
-    const gradientColors = index % 2 ? theme.COLORS_TWO.GRADIENT_VARIANT_ONE : theme.COLORS_TWO.GRADIENT_VARIANT_TWO;
-
+    const gradientColors = index % 2 ? theme.GRADIENT_VARIANT_ONE : theme.GRADIENT_VARIANT_TWO;
     return (
       <TouchableOpacity
         key={props.title}
@@ -199,7 +207,7 @@ const Dashboard = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <AppBar name="Create A Request" />
+      <AppBar name="Create A Request" bg={theme.PRIMARY}/>
         <ScrollView  style={{marginTop: 20}}>
           {renderCards()}
         </ScrollView>

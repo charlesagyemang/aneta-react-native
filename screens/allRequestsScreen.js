@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, SafeAreaView, ScrollView, TextInput } from 'react-native';
 import axios from 'axios'
-import theme from '../src/theme';
+import theme2 from '../src/theme';
 import AppBar from '../components/appBar';
 import Item from '../components/listLanguagesItem';
 import { Block, Button, Text } from 'galio-framework';
@@ -10,11 +10,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { AsyncStorage } from 'react-native';
 
 
-const BASE_SIZE = theme.SIZES.BASE;
+const BASE_SIZE = theme2.SIZES.BASE;
 const GRADIENT_BLUE = ['#006400', '#00FF00'];
 const GRADIENT_PINK = ['#006400', '#00FF00'];
-const COLOR_WHITE = theme.COLORS.WHITE;
-const COLOR_GREY = theme.COLORS.MUTED; // '#D8DDE1';
+const COLOR_WHITE = theme2.COLORS.WHITE;
+const COLOR_GREY = theme2.COLORS.MUTED; // '#D8DDE1';
 
 
 export default () => {
@@ -24,6 +24,15 @@ export default () => {
   const [data, setData] = useState([]);
   const [token, setToken] = useState('');
   const [firstQuery, setFirstQuery] = useState('');
+  const [color, setColor] = useState('')
+  const [theme, setTheme] = useState({
+    NAME: 'default',
+    DEFAULT: '#172B4D',
+    PRIMARY: '#5E72E4',
+    SECONDARY: '#F7FAFC',
+    GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+    GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+  });
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -33,7 +42,7 @@ export default () => {
 
       axios.get(url)
       .then((resp) => {
-        // console.log(resp.data);
+        console.log(resp.data);
         const articles = resp.data.requests
         setIsNotEmpty(resp.data.requests.length > 0)
         setData(articles);
@@ -44,10 +53,17 @@ export default () => {
       .finally(() => {
         setLoading(false)
       })
-    })
-  }, [])
 
-  // console.log(token);
+      AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
+        const datum = JSON.parse(data);
+        setColor(datum.NAME);
+        setTheme(datum);
+      });
+    }, [theme]);
+
+
+
+  }, [color])
 
   const renderItem = ({ item }) => {
      const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
@@ -62,7 +78,7 @@ export default () => {
 
 
    const renderCard = (props, index) => {
-     const gradientColors = index % 2 ? theme.COLORS_TWO.GRADIENT_VARIANT_ONE : theme.COLORS_TWO.GRADIENT_VARIANT_TWO;
+     const gradientColors = index % 2 ? theme.GRADIENT_VARIANT_ONE : theme.GRADIENT_VARIANT_TWO;
 
      return (
        <Block row center card shadow space="between" style={styles.card} key={props.id}>
@@ -94,14 +110,14 @@ export default () => {
 
     return(
         <View style={{flex: 1}}>
-            <AppBar name="All Requests" />
+            <AppBar name="All Requests" bg={theme.PRIMARY}/>
 
             <View style={styles.container}>
-            <View style={styles.inputView} >
+            <View style={{...styles.inputView, backgroundColor: theme.PRIMARY}} >
               <TextInput
                 style={styles.inputText}
                 placeholder="Search Requests"
-                placeholderTextColor= {theme.COLORS.WHITE}
+                placeholderTextColor= 'white'
                 onChangeText={pin => console.log("pin")}/>
             </View>
                 <View style={styles.newStack}>
@@ -165,7 +181,6 @@ const styles = StyleSheet.create({
       marginTop: "5%",
       marginLeft: "10%",
       width:"80%",
-      backgroundColor: theme.COLORS_TWO.PRIMARY,
       borderRadius:25,
       height:50,
       marginBottom:20,

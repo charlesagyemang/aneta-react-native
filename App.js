@@ -7,19 +7,19 @@ import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
 import ProfileScreen from './screens/profileScreen';
 import SettingsScreen from './screens/settingsScreen';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 import axios from 'axios'
 import KehillahDialog from './components/kehillahDialog';
 import BaseDropDown from './components/baseDropDown';
 import {zoneList} from './constants/utils';
-import theme from './src/theme';
+import theme2 from './src/theme';
 
 
 // Auth stuff
 import { storeData, retrieveData } from './helpers/localStorage';
 const Tab = createBottomTabNavigator();
 
-const MyNavigationDrawer = () => {
+const MyNavigationDrawer = ({theme}) => {
   return (
     <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -40,8 +40,8 @@ const MyNavigationDrawer = () => {
           },
         })}
         tabBarOptions={{
-          activeTintColor: theme.COLORS_TWO.PRIMARY,
-          inactiveTintColor: theme.COLORS_TWO.DEFAULT,
+          activeTintColor: theme.PRIMARY,
+          inactiveTintColor: theme.DEFAULT,
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
@@ -55,6 +55,15 @@ const MyNavigationDrawer = () => {
 
 export default function App() {
 
+  const [color, setColor] = useState('')
+  const [theme, setTheme] = useState({
+    NAME: 'default',
+    DEFAULT: '#172B4D',
+    PRIMARY: '#5E72E4',
+    SECONDARY: '#F7FAFC',
+    GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+    GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+  });
   const [isLoaggedIn, setIsLoggedIn] = useState(false)
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -67,6 +76,8 @@ export default function App() {
   const [zone, setZone] = useState('Ablekuma-Awoshie')
   const [location, setLocation] = useState('')
   const [infoMessageSignUp, setInfoMessageSignUp] = useState('')
+
+
 
   const handleSignIn = async () => {
     const loginBody = { phoneNumber, pin }
@@ -146,13 +157,19 @@ export default function App() {
       // console.log(value);
       await setIsLoggedIn(status)
     }
-    getLoginDetails()
-  }, [])
+    getLoginDetails();
+    AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
+      const datum = JSON.parse(data);
+      setColor(datum.NAME);
+      setTheme(datum);
+      // console.log("DATAAAAA", datum);
+    });
+  }, [theme])
 
   if (isLoaggedIn) {
     return (
       <NavigationContainer>
-        <MyNavigationDrawer />
+        <MyNavigationDrawer theme={theme} />
       </NavigationContainer>
     );
   } else {

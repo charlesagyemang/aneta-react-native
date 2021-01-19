@@ -5,7 +5,7 @@ import theme from '../src/theme';
 
 
 const MyComponent = (props) => (
- <Appbar style={{...styles.bottom, backgroundColor: theme.COLORS_TWO.PRIMARY}}>
+ <Appbar style={{...styles.bottom, backgroundColor: props.bg || theme.COLORS_TWO.PRIMARY}}>
     {/* <Appbar.BackAction onPress={() => console.log("heheh")} /> */}
     <Text style={styles.content} >{props.name}</Text>
   </Appbar>

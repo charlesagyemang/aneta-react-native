@@ -14,7 +14,7 @@ import { AsyncStorage } from 'react-native';
 import  Button  from "../components/Button";
 import Images from "../constants/Images";
 import argonTheme from "../constants/Theme";
-import theme from '../src/theme';
+import theme2 from '../src/theme';
 
 import { HeaderHeight } from "../constants/utils";
 const { width, height } = Dimensions.get("screen");
@@ -25,6 +25,15 @@ import AppBar from '../components/appBar';
 const Profile = ({navigation}) => {
     const [profile, setProfile] = useState({phoneNumber: "", other: { name: "Loading....", zone: "please Wait...", location: "....", }})
     const [reqStat, setReqStat] = useState({todaysRequest: [], thisWeeksRequest: [], thisMonthsRequest: [], requests: [{id: "none"}]})
+    const [color, setColor] = useState('')
+    const [theme, setTheme] = useState({
+      NAME: 'default',
+      DEFAULT: '#172B4D',
+      PRIMARY: '#5E72E4',
+      SECONDARY: '#F7FAFC',
+      GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+      GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+    });
 
     useEffect(() => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -40,9 +49,15 @@ const Profile = ({navigation}) => {
           console.log(e.message);
         })
 
-      })
+      });
 
-    }, [])
+      AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
+        const datum = JSON.parse(data);
+        setColor(datum.NAME);
+        setTheme(datum);
+      });
+
+    }, [theme])
 
     const handleSignOut = () => {
       console.log("sign Me out");
@@ -55,7 +70,7 @@ const Profile = ({navigation}) => {
 
     return (
       <View style={{flex: 1}}>
-      <AppBar name="My Profile" />
+      <AppBar name="My Profilerrr" bg={theme.PRIMARY}/>
       <View style={{paddingTop: 10}}></View>
       <Block flex style={styles.profile}>
         <Block flex>
@@ -85,7 +100,7 @@ const Profile = ({navigation}) => {
                     <Button
                       onPress={() => navigation.navigate('New Request', {name: 'New Request'})}
                       small
-                      style={{ backgroundColor: theme.COLORS_TWO.PRIMARY }}
+                      style={{ backgroundColor: theme2.COLORS_TWO.PRIMARY }}
                     >
                       New Req
                     </Button>
@@ -183,12 +198,12 @@ const styles = StyleSheet.create({
   },
   profileCard: {
     // position: "relative",
-    padding: theme.SIZES.BASE,
-    marginHorizontal: theme.SIZES.BASE,
+    padding: theme2.SIZES.BASE,
+    marginHorizontal: theme2.SIZES.BASE,
     marginTop: 65,
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: theme2.COLORS.WHITE,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 8,

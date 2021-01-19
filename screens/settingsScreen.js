@@ -10,11 +10,12 @@ import {
   SettingsCategoryHeader,
   SettingsSwitch, SettingsPicker
 } from 'react-native-settings-components';
-import theme from '../src/theme';
+// import theme from '../src/theme';
 
 import axios from 'axios'
 import AppBar from '../components/appBar';
 import { AsyncStorage } from 'react-native';
+import { storeData, retrieveData } from '../helpers/localStorage';
 
 
 export default () => {
@@ -24,6 +25,15 @@ export default () => {
   const [username, setUsername] = useState('')
   const [allowPushNotifications, setAllowPushNotifications] = useState(true)
   const [gender, setGender] = useState('')
+  const [color, setColor] = useState('')
+  const [theme, setTheme] = useState({
+    NAME: 'default',
+    DEFAULT: '#172B4D',
+    PRIMARY: '#5E72E4',
+    SECONDARY: '#F7FAFC',
+    GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+    GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+  });
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -37,14 +47,59 @@ export default () => {
       .catch((e) => {
         console.log(e.message);
       })
+    });
 
-    })
+    AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
+      const datum = JSON.parse(data);
+      setColor(datum.NAME);
+      setTheme(datum);
+      // console.log("DATAAAAA", datum);
+    });
 
-  }, [])
+  }, [color])
+
+  const handleChooseColorTheme = async (color) => {
+    setColor(color);
+    const colorThemes = {
+      default: {
+        NAME: 'default',
+        DEFAULT: '#172B4D',
+        PRIMARY: '#5E72E4',
+        SECONDARY: '#F7FAFC',
+        GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+        GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+      },
+      green: {
+        NAME: 'green',
+        DEFAULT: '#172B4D', //00A300
+        PRIMARY: '#007500',
+        SECONDARY: '#00D100',
+        GRADIENT_VARIANT_ONE: ['#00A300', '#00D100'],
+        GRADIENT_VARIANT_TWO: ['#00D100', '#00A300'],
+      },
+      blue: {
+        NAME: 'blue',
+        DEFAULT: '#172B4D',
+        PRIMARY: '#5E72E4',
+        SECONDARY: '#F7FAFC',
+        GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+        GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+      },
+      violet: {
+        NAME: 'violet',
+        DEFAULT: '#172B4D',
+        PRIMARY: '#5E72E4',
+        SECONDARY: '#F7FAFC',
+        GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
+        GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
+      },
+    }
+    await storeData('USER-CHOSEN-THEME', JSON.stringify(colorThemes[color]));
+  }
 
   return(
     <View style={{flex: 1}}>
-    <AppBar name="Settings" />
+    <AppBar name="Settings" bg={theme.PRIMARY}/>
     <ScrollView style={{flex: 1, backgroundColor: (Platform.OS === 'ios') ? colors.iosSettingsBackground : colors.white}}>
         <SettingsCategoryHeader
         title={'My Account'}
@@ -164,8 +219,8 @@ export default () => {
              { label: "blue", value: "blue" },
              { label: "violet", value: "violet" }
            ]}
-           onValueChange={value => setGender(value)}
-           value={gender}
+           onValueChange={value => handleChooseColorTheme(value)}
+           value={color}
          />
          <SettingsDividerShort/>
         <SettingsSwitch
@@ -173,13 +228,11 @@ export default () => {
           onValueChange={value => setAllowPushNotifications(value) }
           value={allowPushNotifications}
           trackColor={{
-            true: colors.switchEnabled,
-            false: colors.switchDisabled,
+            true: theme.PRIMARY,
+            false: theme.SECONDARY,
           }}
         />
-
       <Text></Text>
-
       </ScrollView>
       </View>
 
@@ -190,7 +243,5 @@ export default () => {
 const colors = {
   white: "#FFFFFF",
   monza: "#C70039",
-  switchEnabled: theme.COLORS_TWO.PRIMARY,
-  switchDisabled: theme.COLORS_TWO.SECONDARY,
   blueGem: "#27139A",
 };
