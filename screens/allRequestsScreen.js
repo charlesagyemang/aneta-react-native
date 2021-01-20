@@ -37,9 +37,7 @@ export default () => {
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
       setToken(JSON.parse(data).id);
-      const url2 = 'https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json'
       const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${JSON.parse(data).id}`
-
       axios.get(url)
       .then((resp) => {
         console.log(resp.data);
@@ -53,16 +51,12 @@ export default () => {
       .finally(() => {
         setLoading(false)
       })
-
       AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
         const datum = JSON.parse(data);
         setColor(datum.NAME);
         setTheme(datum);
       });
-    }, [theme]);
-
-
-
+    });
   }, [color])
 
   const renderItem = ({ item }) => {
