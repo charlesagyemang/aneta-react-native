@@ -8,6 +8,8 @@ import { Block, Button, Text } from 'galio-framework';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AsyncStorage } from 'react-native';
+import  Button2  from "../components/Button";
+
 
 
 const BASE_SIZE = theme2.SIZES.BASE;
@@ -23,7 +25,8 @@ export default () => {
   const [isNotEmpty, setIsNotEmpty] = useState(null);
   const [data, setData] = useState([]);
   const [token, setToken] = useState('');
-  const [firstQuery, setFirstQuery] = useState('');
+  const [firstQuery, setFirstQuery] = useState('')
+  const [refreshTrue, setRefreshTrue] = useState(false)
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -35,6 +38,7 @@ export default () => {
         const articles = resp.data.requests
         setIsNotEmpty(resp.data.requests.length > 0)
         setData(articles);
+        setRefreshTrue(false);
       })
       .catch((e) => {
         console.log(e.message);
@@ -43,7 +47,7 @@ export default () => {
         setLoading(false)
       })
     });
-  }, [])
+  }, [refreshTrue])
 
   const renderItem = ({ item }) => {
      const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
@@ -91,7 +95,6 @@ export default () => {
     return(
         <View style={{flex: 1}}>
             <AppBar name="All Requests" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
-
             <View style={styles.container}>
             <View style={{...styles.inputView, backgroundColor: theme2.COLOR_THEMES.ONE.PRIMARY}} >
               <TextInput
@@ -100,7 +103,15 @@ export default () => {
                 placeholderTextColor= 'white'
                 onChangeText={pin => console.log("pin")}/>
             </View>
+
                 <View style={styles.newStack}>
+                <Button2
+                  onPress={() => setRefreshTrue(true)}
+                  small
+                  style={{ marginLeft: 15,  backgroundColor: "violet" }}
+                >
+                  Reload
+                </Button2>
                 { isLoading ? <Text>Loading...</Text> : <Text></Text> }
                 { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
                 </View>

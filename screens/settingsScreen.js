@@ -55,6 +55,7 @@ export default () => {
         <SettingsEditText
            disabled={true}
            title="Username"
+           positiveButtonTitle="DONE"
            titleStyle={{color: 'black'}}
            valueStyle = {{color: 'black'}}
            dialogDescription={"Enter your username."}
@@ -69,6 +70,7 @@ export default () => {
          <SettingsEditText
             disabled={true}
             title="Zone"
+            positiveButtonTitle="DONE"
             titleStyle={{color: 'black'}}
             valueStyle = {{color: 'black'}}
             dialogDescription={"Enter your username."}
@@ -80,6 +82,7 @@ export default () => {
           />
           <SettingsDividerShort/>
           <SettingsEditText
+          positiveButtonTitle="DONE"
              disabled={true}
              title="Location"
              titleStyle={{color: 'black'}}
@@ -98,6 +101,8 @@ export default () => {
             titleStyle={{color: 'black'}}
             valueStyle = {{color: 'black'}}
             dialogDescription={"Enter your username."}
+            positiveButtonTitle="DONE"
+
             valuePlaceholder="..."
             negativeButtonTitle={"Cancel"}
             buttonRightTitle={"Save"}
@@ -112,6 +117,7 @@ export default () => {
 
           <SettingsDividerLong android={false}/>
           <SettingsEditText
+             positiveButtonTitle="DONE"
              disabled={true}
              title="Todays requests"
              titleStyle={{color: 'black'}}
@@ -127,6 +133,8 @@ export default () => {
            <SettingsDividerShort/>
             <SettingsEditText
                disabled={true}
+               positiveButtonTitle="DONE"
+
                title="This Months Requests"
                titleStyle={{color: 'black'}}
                valueStyle = {{color: 'black'}}
@@ -146,6 +154,8 @@ export default () => {
               dialogDescription={"Enter your username."}
               valuePlaceholder="..."
               negativeButtonTitle={"Cancel"}
+              positiveButtonTitle="DONE"
+
               buttonRightTitle={"Save"}
               onValueChange={value => setUsername(value)}
               value={reqStat.requests.length + ""}

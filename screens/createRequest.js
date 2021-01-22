@@ -154,13 +154,13 @@ export default ({navigation}) => {
       axios.post(url, bodyToSend)
       .then(({data}) => {
         const message = `Request Successfully Created With ID ${data.id}`;
-        console.log(data);
-        setAlertVisibility(true)
-        setAlertMessage(message)
         setButtonMessage('Success')
         navigation.navigate('All Requests', {name: 'All Requets'})
-        const newMessage = `New Request from Mobile App\n Sender: ${currentUser.other.name} || ${currentUser.phoneNumber}\n Edit Link: https://aneta-dashboard.netlify.app/dashboard/edit-single-request/${data.id}`
-        sendSlackNotification(newMessage)
+        // console.log(data);
+        // setAlertVisibility(true)
+        // setAlertMessage(message)
+        // const newMessage = `New Request from Mobile App\n Sender: ${currentUser.other.name} || ${currentUser.phoneNumber}\n Edit Link: https://aneta-dashboard.netlify.app/dashboard/edit-single-request/${data.id}`
+        // sendSlackNotification(newMessage)
       })
       .catch((err) => {
         console.log(err.message);
