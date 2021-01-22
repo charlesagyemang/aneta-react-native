@@ -24,15 +24,6 @@ export default () => {
   const [data, setData] = useState([]);
   const [token, setToken] = useState('');
   const [firstQuery, setFirstQuery] = useState('');
-  const [color, setColor] = useState('')
-  const [theme, setTheme] = useState({
-    NAME: 'default',
-    DEFAULT: '#172B4D',
-    PRIMARY: '#5E72E4',
-    SECONDARY: '#F7FAFC',
-    GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
-    GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
-  });
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -51,13 +42,8 @@ export default () => {
       .finally(() => {
         setLoading(false)
       })
-      AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
-        const datum = JSON.parse(data);
-        setColor(datum.NAME);
-        setTheme(datum);
-      });
     });
-  }, [color])
+  }, [])
 
   const renderItem = ({ item }) => {
      const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
@@ -72,7 +58,7 @@ export default () => {
 
 
    const renderCard = (props, index) => {
-     const gradientColors = index % 2 ? theme.GRADIENT_VARIANT_ONE : theme.GRADIENT_VARIANT_TWO;
+     const gradientColors = index % 2 ? theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_ONE : theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_TWO;
 
      return (
        <Block row center card shadow space="between" style={styles.card} key={props.id}>
@@ -104,10 +90,10 @@ export default () => {
 
     return(
         <View style={{flex: 1}}>
-            <AppBar name="All Requests" bg={theme.PRIMARY}/>
+            <AppBar name="All Requests" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
 
             <View style={styles.container}>
-            <View style={{...styles.inputView, backgroundColor: theme.PRIMARY}} >
+            <View style={{...styles.inputView, backgroundColor: theme2.COLOR_THEMES.ONE.PRIMARY}} >
               <TextInput
                 style={styles.inputText}
                 placeholder="Search Requests"

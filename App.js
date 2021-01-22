@@ -12,14 +12,14 @@ import axios from 'axios'
 import KehillahDialog from './components/kehillahDialog';
 import BaseDropDown from './components/baseDropDown';
 import {zoneList} from './constants/utils';
-import theme2 from './src/theme';
+import theme from './src/theme';
 
 
 // Auth stuff
 import { storeData, retrieveData } from './helpers/localStorage';
 const Tab = createBottomTabNavigator();
 
-const MyNavigationDrawer = ({theme}) => {
+const MyNavigationDrawer = () => {
   return (
     <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -40,8 +40,8 @@ const MyNavigationDrawer = ({theme}) => {
           },
         })}
         tabBarOptions={{
-          activeTintColor: theme.PRIMARY,
-          inactiveTintColor: theme.DEFAULT,
+          activeTintColor: theme.COLOR_THEMES.ONE.PRIMARY,
+          inactiveTintColor: theme.COLOR_THEMES.ONE.DEFAULT,
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
@@ -54,16 +54,6 @@ const MyNavigationDrawer = ({theme}) => {
 }
 
 export default function App() {
-
-  const [color, setColor] = useState('')
-  const [theme, setTheme] = useState({
-    NAME: 'default',
-    DEFAULT: '#172B4D',
-    PRIMARY: '#5E72E4',
-    SECONDARY: '#F7FAFC',
-    GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
-    GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
-  });
   const [isLoaggedIn, setIsLoggedIn] = useState(false)
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -158,18 +148,12 @@ export default function App() {
       await setIsLoggedIn(status)
     }
     getLoginDetails();
-    AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
-      const datum = JSON.parse(data);
-      setColor(datum.NAME);
-      setTheme(datum);
-      // console.log("DATAAAAA", datum);
-    });
-  }, [theme])
+  }, [])
 
   if (isLoaggedIn) {
     return (
       <NavigationContainer>
-        <MyNavigationDrawer theme={theme} />
+        <MyNavigationDrawer />
       </NavigationContainer>
     );
   } else {
@@ -299,7 +283,7 @@ export default function App() {
 const styles = StyleSheet.create({
   containerr: {
     flex: 1,
-    backgroundColor: '#00b300',
+    backgroundColor: theme.COLOR_THEMES.ONE.PRIMARY, // '#00b300',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -311,7 +295,7 @@ const styles = StyleSheet.create({
   },
   inputView:{
     width:"80%",
-    backgroundColor:"#2E8B57",
+    backgroundColor: theme.COLORS.WHITE, //"#2E8B57",
     borderRadius:25,
     height:50,
     marginBottom:20,
@@ -320,7 +304,7 @@ const styles = StyleSheet.create({
   },
   inputText:{
     height:50,
-    color:"white"
+    color:"black"
   },
   forgot:{
     color:"white",
@@ -328,7 +312,7 @@ const styles = StyleSheet.create({
   },
   loginBtn:{
     width:"80%",
-    backgroundColor:"#006400", //#32CD32
+    backgroundColor: theme.COLOR_THEMES.ONE.DEFAULT,//"#006400", //#32CD32
     borderRadius:25,
     height:50,
     alignItems:"center",

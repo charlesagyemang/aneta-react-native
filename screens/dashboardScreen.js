@@ -27,15 +27,6 @@ const COLOR_GREY = theme2.COLORS.MUTED; // '#D8DDE1';
 const statsTitles = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
 
 const Dashboard = ({navigation}) => {
-  const [color, setColor] = useState('')
-  const [theme, setTheme] = useState({
-    NAME: 'default',
-    DEFAULT: '#172B4D',
-    PRIMARY: '#5E72E4',
-    SECONDARY: '#F7FAFC',
-    GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
-    GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
-  });
   const [reqStat, setReqStat] = useState({todaysRequest: [], thisWeeksRequest: [], thisMonthsRequest: [], requests: [{id: "none"}]})
   const [token, setToken] = useState('');
 
@@ -60,13 +51,7 @@ const Dashboard = ({navigation}) => {
         console.log(e.message);
       })
     });
-    AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
-      const datum = JSON.parse(data);
-      setColor(datum.NAME);
-      setTheme(datum);
-      // console.log("DATAAAAA", datum);
-    });
-  }, [theme]);
+  }, []);
 
   // mock data
   const cards = [
@@ -173,7 +158,7 @@ const Dashboard = ({navigation}) => {
   }
 
   const renderCard = (props, index) => {
-    const gradientColors = index % 2 ? theme.GRADIENT_VARIANT_ONE : theme.GRADIENT_VARIANT_TWO;
+    const gradientColors = index % 2 ? theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_ONE : theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_TWO;
     return (
       <TouchableOpacity
         key={props.title}
@@ -207,7 +192,7 @@ const Dashboard = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <AppBar name="Create A Request" bg={theme.PRIMARY}/>
+      <AppBar name="Create A Request" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
         <ScrollView  style={{marginTop: 20}}>
           {renderCards()}
         </ScrollView>

@@ -25,16 +25,6 @@ import AppBar from '../components/appBar';
 const Profile = ({navigation}) => {
     const [profile, setProfile] = useState({phoneNumber: "", other: { name: "Loading....", zone: "please Wait...", location: "....", }})
     const [reqStat, setReqStat] = useState({todaysRequest: [], thisWeeksRequest: [], thisMonthsRequest: [], requests: [{id: "none"}]})
-    const [color, setColor] = useState('')
-    const [theme, setTheme] = useState({
-      NAME: 'default',
-      DEFAULT: '#172B4D',
-      PRIMARY: '#5E72E4',
-      SECONDARY: '#F7FAFC',
-      GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
-      GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
-    });
-
     useEffect(() => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
         const info = JSON.parse(data);
@@ -50,14 +40,7 @@ const Profile = ({navigation}) => {
         })
 
       });
-
-      AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
-        const datum = JSON.parse(data);
-        setColor(datum.NAME);
-        setTheme(datum);
-      });
-
-    }, [theme])
+    }, [])
 
     const handleSignOut = () => {
       console.log("sign Me out");
@@ -70,7 +53,7 @@ const Profile = ({navigation}) => {
 
     return (
       <View style={{flex: 1}}>
-      <AppBar name="My Profilerrr" bg={theme.PRIMARY}/>
+      <AppBar name="My Profilerrr" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
       <View style={{paddingTop: 10}}></View>
       <Block flex style={styles.profile}>
         <Block flex>
@@ -100,7 +83,7 @@ const Profile = ({navigation}) => {
                     <Button
                       onPress={() => navigation.navigate('New Request', {name: 'New Request'})}
                       small
-                      style={{ backgroundColor: theme2.COLORS_TWO.PRIMARY }}
+                      style={{ backgroundColor: theme2.COLOR_THEMES.ONE.PRIMARY }}
                     >
                       New Req
                     </Button>

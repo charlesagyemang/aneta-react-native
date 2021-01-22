@@ -82,15 +82,6 @@ export default ({navigation}) => {
         }
     ]
 
-    const [color, setColor] = useState('')
-    const [theme, setTheme] = useState({
-      NAME: 'default',
-      DEFAULT: '#172B4D',
-      PRIMARY: '#5E72E4',
-      SECONDARY: '#F7FAFC',
-      GRADIENT_VARIANT_ONE: ['#5E72E4', '#9AA6FF'],
-      GRADIENT_VARIANT_TWO: ['#9AA6FF', '#5E72E4'],
-    });
     const [pickupDate, setPickupDate] = useState(moment().format().split("T")[0]);
     const [trashSize, setTrashSize]   = useState('I DONT KNOW');
     const [location, setLocation]     = useState('');
@@ -108,14 +99,7 @@ export default ({navigation}) => {
         const dataGotten = JSON.parse(data);
         setCurrentUser(dataGotten);
       });
-
-      AsyncStorage.getItem('USER-CHOSEN-THEME', (err, data) => {
-        const datum = JSON.parse(data);
-        setColor(datum.NAME);
-        setTheme(datum);
-        // console.log("DATAAAAA", datum);
-      });
-    }, [theme])
+    }, [])
 
     const showDatePicker = () => {
         Keyboard.dismiss();
@@ -193,7 +177,7 @@ export default ({navigation}) => {
     return(
         <View style={{flex: 1}}>
 
-            <AppBar name="Create A Request" bg={theme.PRIMARY}/>
+            <AppBar name="Create A Request" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
              <View style={styles.root}>
 
              <BaseDropDown
@@ -241,7 +225,7 @@ export default ({navigation}) => {
                     message="Select Your Trash Size"
                 />
                 <View>
-                    <Button style={{...styles.buttonStyle,  backgroundColor: theme.PRIMARY}} loading={buttonLoadingStatus} icon="car" mode="contained" onPress={handleMakeRequest}>
+                    <Button style={{...styles.buttonStyle,  backgroundColor: theme2.COLOR_THEMES.ONE.PRIMARY}} loading={buttonLoadingStatus} icon="car" mode="contained" onPress={handleMakeRequest}>
                         {buttonMessage}
                     </Button>
                 </View>
