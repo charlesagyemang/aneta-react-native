@@ -17,18 +17,10 @@ export default function Example({navigation}) {
       <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={[styles.itemContainer, { backgroundColor: "#8e44ad" }]}
+            style={[styles.itemContainer, { backgroundColor: item.code }]}
             key={item.name}
             onPress={() => navigation.navigate(item.url, { name: item.url })}>
-            <ImageBackground
-            source={{ uri: item.uri }}
-            style={{
-              height: 150,
-              width: 190,
-              opacity: 0.78,
-              position: 'absolute',
-            }}
-          />
+
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.itemCode}>{item.code}</Text>
           </TouchableOpacity>

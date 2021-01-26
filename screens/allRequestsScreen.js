@@ -103,16 +103,12 @@ export default () => {
          </Gradient>
 
          <Block flex>
-           <Text size={BASE_SIZE * 1.125} >{moment(props.date).format('Do MMM YYYY')}</Text>
-           <Text size={BASE_SIZE * 0.875} >Location: {props.other.proposedLocation}</Text>
-           <Text size={BASE_SIZE * 0.875} >Type: {props.requestType}</Text>
+           <Text size={BASE_SIZE * 1.125} >{props.other.proposedLocation}</Text>
+           <Text size={BASE_SIZE * 0.875} >{moment(props.date).format('Do MMM YYYY')}</Text>
            <Text size={BASE_SIZE * 0.875} >Status: {props.requestStatus}</Text>
            <Text size={BASE_SIZE * 0.875} >ID: {props.id}</Text>
-           <Text size={BASE_SIZE * 0.875} >Trash Size: {props.trashSize}</Text>
          </Block>
-         <Button style={styles.right}>
-           <Icon size={BASE_SIZE} name="ios-arrow-forward" family="Galio" color={COLOR_GREY} />
-         </Button>
+
        </Block>
      );
    }
@@ -134,9 +130,9 @@ export default () => {
                 <Button2
                   onPress={() => setRefreshTrue(true)}
                   small
-                  style={{ marginLeft: 15,  backgroundColor: "violet" }}
+                  style={{ marginLeft: "75%",  backgroundColor: "violet" }}
                 >
-                  Reload
+                  Refresh
                 </Button2>
                 { isLoading ? <Text>Loading...</Text> : <Text></Text> }
                 { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }

@@ -73,15 +73,15 @@ const Dashboard = ({navigation}) => {
     {
       title: 'Track A Pickup',
       subtitle: `Most Recent Req: ${mostRecent}`,
-      icon: 'ios-trash',
+      icon: 'ios-git-pull-request',
       iconFamily: 'Galio',
       name: 'New Request',
     },
 
     {
-      title: 'Settings',
-      subtitle: 'Check out Your Profile',
-      icon: 'ios-cog',
+      title: 'My Locations',
+      subtitle: 'Check out Your Locations',
+      icon: 'ios-pin',
       iconFamily: 'Galio',
       name: 'Settings',
     },
