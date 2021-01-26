@@ -6,13 +6,14 @@ import  Button  from "../components/Button";
 
 export default function Example({navigation}) {
   const [items, setItems] = React.useState([
-    { name: 'All Requests', code: '#8e44ad', url: 'All Requests' },
-    { name: 'Create A New Request', code: '#2c3e50', url: 'New Request' },
-    { name: 'Track A Pickup', code: '#f1c40f', url: 'New Request' },
-    { name: 'Settings', code: '#e67e22', url: 'Settings' },
+    { name: 'All Requests', code: '#8e44ad', url: 'All Requests', uri: 'https://whyy.org/wp-content/uploads/2020/07/2020-7-16-k-paynter-trash-collection-delay-6.jpg' },
+    { name: 'Create A New Request', code: '#2c3e50', url: 'New Request', uri: 'https://img.apmcdn.org/205d8706dc865111c47f00e68ab1e51b69535e6d/portrait/6d101a-20190605-trash-carts-st-paul.jpg' },
+    { name: 'Track A Pickup', code: '#f1c40f', url: 'New Request', uri: 'https://cityofsugarhill.com/wp-content/uploads/2019/08/waste-pickup-trash-removal.jpg' },
+    { name: 'Settings', code: '#e67e22', url: 'Settings', uri: 'https://img.apmcdn.org/205d8706dc865111c47f00e68ab1e51b69535e6d/portrait/6d101a-20190605-trash-carts-st-paul.jpg' },
   ]);
 
   return (
+    <View style={{ flex: 1, marginTop: "60%"}}>
       <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -20,11 +21,11 @@ export default function Example({navigation}) {
             key={item.name}
             onPress={() => navigation.navigate(item.url, { name: item.url })}>
             <ImageBackground
-            source={{ uri: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg' }}
+            source={{ uri: item.uri }}
             style={{
               height: 150,
               width: 190,
-              opacity: 0.6,
+              opacity: 0.3,
               position: 'absolute',
             }}
           />
@@ -33,6 +34,7 @@ export default function Example({navigation}) {
           </TouchableOpacity>
         )}
       />
+    </View>
   );
 }
 
