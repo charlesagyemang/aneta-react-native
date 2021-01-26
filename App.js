@@ -47,11 +47,11 @@ const MyNavigationDrawer = () => {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="New Request" component={CreateRequest} />
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
   )
 }
+// <Tab.Screen name="Profile" component={ProfileScreen} />
 
 export default function App() {
   const [isLoaggedIn, setIsLoggedIn] = useState(false)

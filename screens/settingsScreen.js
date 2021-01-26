@@ -155,7 +155,6 @@ export default () => {
               valuePlaceholder="..."
               negativeButtonTitle={"Cancel"}
               positiveButtonTitle="DONE"
-
               buttonRightTitle={"Save"}
               onValueChange={value => setUsername(value)}
               value={reqStat.requests.length + ""}

@@ -79,11 +79,11 @@ const Dashboard = ({navigation}) => {
     },
 
     {
-      title: 'Profile',
+      title: 'Settings',
       subtitle: 'Check out Your Profile',
-      icon: 'ios-people',
+      icon: 'ios-cog',
       iconFamily: 'Galio',
-      name: 'Profile',
+      name: 'Settings',
     },
   ];
 
@@ -191,9 +191,9 @@ const Dashboard = ({navigation}) => {
   const renderCards = () => cards.map((card, index) => renderCard(card, index))
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,  justifyContent: 'center' }}>
       <AppBar name="Create A Request" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
-        <ScrollView  style={{marginTop: 20}}>
+        <ScrollView  style={{marginTop: "50%"}}>
           {renderCards()}
         </ScrollView>
     </View>

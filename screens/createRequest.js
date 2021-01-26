@@ -240,7 +240,8 @@ const styles = StyleSheet.create({
     root: {
         flex: 1,
         marginTop: 50,
-        margin: 10
+        margin: 10,
+        justifyContent: 'center',
     },
     inputStyle: {
         margin: 10,

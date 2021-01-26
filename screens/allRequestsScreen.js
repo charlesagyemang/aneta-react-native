@@ -63,13 +63,34 @@ export default () => {
 
    const renderCard = (props, index) => {
      const gradientColors = index % 2 ? theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_ONE : theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_TWO;
+     let gradientColorsTwo;
+
+     switch (props.requestStatus) {
+       case 'CREATED':
+         gradientColorsTwo = ['#5E72E4', '#9AA6FF'] //[ '#18A558' , '#A3EBB1' ]
+         break;
+       case 'PROCESSING':
+         gradientColorsTwo = [ '#D1D100', '#FFFF00']
+         break;
+       case 'ASSIGNED_TO_A_DRIVER':
+         gradientColorsTwo = [ '#F76201' , '#DFB106' ]
+         break;
+       case 'DRIVER_ON_ROUTE_TO_PICKUP':
+         gradientColorsTwo = [ '#3B0918' , '#B8390E' ]
+         break;
+       case 'PICKUP_COMPLETE':
+         gradientColorsTwo = [ '#18A558' , '#A3EBB1' ]
+         break;
+       default:
+
+     }
 
      return (
        <Block row center card shadow space="between" style={styles.card} key={props.id}>
          <Gradient
            start={[0.45, 0.45]}
            end={[0.90, 0.90]}
-           colors={gradientColors}
+           colors={gradientColorsTwo}
            style={[styles.gradient, styles.left]}
          >
            <Icon
@@ -81,8 +102,10 @@ export default () => {
          </Gradient>
 
          <Block flex>
-           <Text size={BASE_SIZE * 1.125}>{props.requestStatus}</Text>
-           <Text size={BASE_SIZE * 0.875} muted>{props.id}</Text>
+           <Text size={BASE_SIZE * 1.125}>ON {props.other.proposedDate} @ {props.other.proposedLocation}</Text>
+           <Text size={BASE_SIZE * 0.875} >Type: {props.requestType}</Text>
+           <Text size={BASE_SIZE * 0.875} >Status: {props.requestStatus}</Text>
+           <Text size={BASE_SIZE * 0.875} >ID: {props.id}</Text>
          </Block>
          <Button style={styles.right}>
            <Icon size={BASE_SIZE} name="ios-arrow-forward" family="Galio" color={COLOR_GREY} />
