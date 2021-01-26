@@ -9,6 +9,7 @@ import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AsyncStorage } from 'react-native';
 import  Button2  from "../components/Button";
+import moment from 'moment'
 
 
 
@@ -102,10 +103,12 @@ export default () => {
          </Gradient>
 
          <Block flex>
-           <Text size={BASE_SIZE * 1.125}>ON {props.other.proposedDate} @ {props.other.proposedLocation}</Text>
+           <Text size={BASE_SIZE * 1.125} >{moment(props.date).format('Do MMM YYYY')}</Text>
+           <Text size={BASE_SIZE * 0.875} >Location: {props.other.proposedLocation}</Text>
            <Text size={BASE_SIZE * 0.875} >Type: {props.requestType}</Text>
            <Text size={BASE_SIZE * 0.875} >Status: {props.requestStatus}</Text>
            <Text size={BASE_SIZE * 0.875} >ID: {props.id}</Text>
+           <Text size={BASE_SIZE * 0.875} >Trash Size: {props.trashSize}</Text>
          </Block>
          <Button style={styles.right}>
            <Icon size={BASE_SIZE} name="ios-arrow-forward" family="Galio" color={COLOR_GREY} />
@@ -113,7 +116,7 @@ export default () => {
        </Block>
      );
    }
-   const renderCards = () => data.map((card, index) => renderCard(card, index))
+   const renderCards = () => data.filter(x => x.other.status === "ACTIVE").map((card, index) => renderCard(card, index))
 
     return(
         <View style={{flex: 1}}>

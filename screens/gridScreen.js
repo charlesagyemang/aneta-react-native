@@ -17,7 +17,7 @@ export default function Example({navigation}) {
       <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={[styles.itemContainer, { backgroundColor: item.code }]}
+            style={[styles.itemContainer, { backgroundColor: "#8e44ad" }]}
             key={item.name}
             onPress={() => navigation.navigate(item.url, { name: item.url })}>
             <ImageBackground
@@ -25,7 +25,7 @@ export default function Example({navigation}) {
             style={{
               height: 150,
               width: 190,
-              opacity: 0.55,
+              opacity: 0.78,
               position: 'absolute',
             }}
           />
