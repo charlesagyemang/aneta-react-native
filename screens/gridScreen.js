@@ -25,7 +25,7 @@ export default function Example({navigation}) {
             style={{
               height: 150,
               width: 190,
-              opacity: 0.3,
+              opacity: 0.55,
               position: 'absolute',
             }}
           />
