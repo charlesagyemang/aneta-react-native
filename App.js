@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/dashboardScreen';
 import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
-import ProfileScreen from './screens/profileScreen';
+import ProfileScreen from './screens/gridScreen'
 import SettingsScreen from './screens/settingsScreen';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 import axios from 'axios'
@@ -48,10 +48,10 @@ const MyNavigationDrawer = () => {
         <Tab.Screen name="New Request" component={CreateRequest} />
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
   )
 }
-// <Tab.Screen name="Profile" component={ProfileScreen} />
 
 export default function App() {
   const [isLoaggedIn, setIsLoggedIn] = useState(false)
