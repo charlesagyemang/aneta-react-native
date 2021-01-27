@@ -129,7 +129,7 @@ export default () => {
          >
            <Icon
              size={BASE_SIZE * 1.8}
-             name={iconName}
+             name={'ios-pin'}
              color={COLOR_WHITE}
              family={props.iconFamily}
            />
@@ -137,9 +137,6 @@ export default () => {
 
          <Block flex>
            <Text size={BASE_SIZE * 1.125} >{props.other.proposedLocation}</Text>
-           <Text size={BASE_SIZE * 0.875} >{moment(props.date).format('Do MMM YYYY')}</Text>
-           <Text size={BASE_SIZE * 0.875} >Status: {innerStatus}</Text>
-           <Text size={BASE_SIZE * 0.875} >ID: {props.id}</Text>
          </Block>
        </Block>
        </TouchableOpacity>
@@ -218,13 +215,6 @@ export default () => {
         <View style={{flex: 1}}>
             <AppBar name="All Requests" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
             <View style={styles.container}>
-            <View style={{...styles.inputView, backgroundColor: theme2.COLOR_THEMES.ONE.PRIMARY}} >
-              <TextInput
-                style={styles.inputText}
-                placeholder="Search Requests"
-                placeholderTextColor= 'white'
-                onChangeText={pin => console.log("pin")}/>
-            </View>
                 <View style={styles.newStack}>
                   <TouchableOpacity
                     onPress={() => setRefreshTrue(true)}
@@ -245,15 +235,6 @@ export default () => {
                     </ScrollView>
                 </SafeAreaView>
             </View>
-            <Modal
-            isVisible={isModalVisible}
-            onBackdropPress={() => toggleModal()}>
-             <View style={styles.modalView}>
-                <Block style={{marginTop: "25%"}} flex>
-                  {renderDetailedCard(currentRequest)}
-                </Block>
-             </View>
-           </Modal>
 
         </View>
       )
@@ -265,7 +246,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     safeAreaStyle: {
-      height: "80%"
+      height: "100%"
     },
     newStack:{
       height: "7%"

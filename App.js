@@ -7,7 +7,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/dashboardScreen';
 import CreateRequest from './screens/createRequest'; //dashboardScreen
 import AllRequestsScreen from './screens/allRequestsScreen';
-import ProfileScreen from './screens/gridScreen'
+import GridScreen from './screens/gridScreen'
+import LocationScreen from './screens/allRequestsForLocationScreen'
 import SettingsScreen from './screens/settingsScreen';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 import axios from 'axios'
@@ -52,8 +53,8 @@ const MyNavigationDrawer = () => {
         <Tab.Screen name="New Request" component={CreateRequest} />
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Locations" component={ProfileScreen} />
+        <Tab.Screen name="Profile" component={GridScreen} />
+        <Tab.Screen name="Locations" component={LocationScreen} />
       </Tab.Navigator>
   )
 }
