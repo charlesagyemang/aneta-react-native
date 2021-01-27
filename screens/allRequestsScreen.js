@@ -30,7 +30,7 @@ export default () => {
   const [firstQuery, setFirstQuery] = useState('')
   const [refreshTrue, setRefreshTrue] = useState(false)
   const [isModalVisible, setModalVisible] = useState(false);
-  const [currentRequest, setCurrentRequest] = useState({ other: {proposedLocation: ""}, date: "", id: "", requestStatus: ""});
+  const [currentRequest, setCurrentRequest] = useState({ other: {proposedLocation: ""}, date: "", id: "", requestStatus: "CREATED"});
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -53,7 +53,7 @@ export default () => {
     });
   }, [refreshTrue])
 
-  const toggleModal = (data={ other: {proposedLocation: ""}, date: "", id: "", requestStatus: ""}) => {
+  const toggleModal = (data={ other: {proposedLocation: ""}, date: "", id: "", requestStatus: "CREATED"}) => {
    setModalVisible(!isModalVisible);
    setCurrentRequest(data);
   };
@@ -164,13 +164,12 @@ export default () => {
                     </ScrollView>
                 </SafeAreaView>
             </View>
-            <Modal isVisible={isModalVisible} onBackdropPress={() => toggleModal()}>
+            <Modal
+            isVisible={isModalVisible}
+            onBackdropPress={() => toggleModal()}>
              <View style={styles.modalView}>
-                <Block flex>
-                  <Text size={BASE_SIZE * 1.125} >{currentRequest.other.proposedLocation}</Text>
-                  <Text size={BASE_SIZE * 0.875} >{moment(currentRequest.date).format('Do MMM YYYY')}</Text>
-                  <Text size={BASE_SIZE * 0.875} >Status: {currentRequest.requestStatus}</Text>
-                  <Text size={BASE_SIZE * 0.875} >ID: {currentRequest.id}</Text>
+                <Block style={{marginTop: "25%"}} flex>
+                  {renderCard(currentRequest)}
                 </Block>
              </View>
            </Modal>
@@ -199,10 +198,10 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.40,
     },
     modalView: {
-      alignItems: 'center',
       justifyContent: 'center',
       marginLeft: "10%",
-      height: "20%",
+      marginRight: "10%",
+      height: "30%",
       width: "80%",
       marginTop: "27%",
       backgroundColor: 'white',
