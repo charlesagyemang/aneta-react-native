@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, TextInput } from 'react-native';
+import Modal from 'react-native-modal';
+import { StyleSheet, View, SafeAreaView, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios'
 import theme2 from '../src/theme';
 import AppBar from '../components/appBar';
@@ -28,6 +29,8 @@ export default () => {
   const [token, setToken] = useState('');
   const [firstQuery, setFirstQuery] = useState('')
   const [refreshTrue, setRefreshTrue] = useState(false)
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [currentRequest, setCurrentRequest] = useState({ other: {proposedLocation: ""}, date: "", id: "", requestStatus: ""});
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -49,6 +52,12 @@ export default () => {
       })
     });
   }, [refreshTrue])
+
+  const toggleModal = (data={ other: {proposedLocation: ""}, date: "", id: "", requestStatus: ""}) => {
+   setModalVisible(!isModalVisible);
+   setCurrentRequest(data);
+  };
+
 
   const renderItem = ({ item }) => {
      const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
@@ -86,7 +95,12 @@ export default () => {
 
      }
 
+
      return (
+       <TouchableOpacity
+         key={props.id}
+         onPress={() => toggleModal(props)}
+       >
        <Block row center card shadow space="between" style={styles.card} key={props.id}>
          <Gradient
            start={[0.45, 0.45]}
@@ -110,6 +124,7 @@ export default () => {
          </Block>
 
        </Block>
+       </TouchableOpacity>
      );
    }
    const renderCards = () => data.filter(x => x.other.status === "ACTIVE").map((card, index) => renderCard(card, index))
@@ -143,6 +158,17 @@ export default () => {
                     </ScrollView>
                 </SafeAreaView>
             </View>
+            <Modal isVisible={isModalVisible} onBackdropPress={() => toggleModal()}>
+             <View style={styles.modalView}>
+                <Block flex>
+                  <Text size={BASE_SIZE * 1.125} >{currentRequest.other.proposedLocation}</Text>
+                  <Text size={BASE_SIZE * 0.875} >{moment(currentRequest.date).format('Do MMM YYYY')}</Text>
+                  <Text size={BASE_SIZE * 0.875} >Status: {currentRequest.requestStatus}</Text>
+                  <Text size={BASE_SIZE * 0.875} >ID: {currentRequest.id}</Text>
+                </Block>
+             </View>
+           </Modal>
+
         </View>
       )
 }
@@ -166,7 +192,15 @@ const styles = StyleSheet.create({
       backgroundColor: COLOR_WHITE,
       shadowOpacity: 0.40,
     },
-
+    modalView: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: "10%",
+      height: "20%",
+      width: "80%",
+      marginTop: "27%",
+      backgroundColor: 'white',
+    },
     menu: {
       width: BASE_SIZE * 2,
       borderColor: 'transparent',
