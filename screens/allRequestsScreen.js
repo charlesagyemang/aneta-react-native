@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Modal from 'react-native-modal';
+import {useSelector, useDispatch} from 'react-redux';
+import {setRequests} from '../src/store/actions';
+
 import { StyleSheet, View, SafeAreaView, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios'
 import theme2 from '../src/theme';
@@ -32,14 +35,19 @@ export default () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [currentRequest, setCurrentRequest] = useState({ other: {proposedLocation: ""}, date: "", id: "", requestStatus: "CREATED"});
 
+
+  const useSelectorData = useSelector(state => state.allRequests);
+  const dispatch =  useDispatch();
+
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
       setToken(JSON.parse(data).id);
       const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${JSON.parse(data).id}`
       axios.get(url)
       .then((resp) => {
-        console.log(resp.data);
+        // console.log(resp.data);
         const articles = resp.data.requests
+        dispatch(setRequests(articles));
         setIsNotEmpty(resp.data.requests.length > 0)
         setData(articles);
         setRefreshTrue(false);
@@ -57,7 +65,6 @@ export default () => {
    setModalVisible(!isModalVisible);
    setCurrentRequest(data);
   };
-
 
   const renderItem = ({ item }) => {
      const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
@@ -133,7 +140,7 @@ export default () => {
        </TouchableOpacity>
      );
    }
-   const renderCards = () => data.filter(x => x.other.status === "ACTIVE").map((card, index) => renderCard(card, index))
+   const renderCards = () => useSelectorData.filter(x => x.other.status === "ACTIVE").map((card, index) => renderCard(card, index))
 
     return(
         <View style={{flex: 1}}>
@@ -146,14 +153,13 @@ export default () => {
                 placeholderTextColor= 'white'
                 onChangeText={pin => console.log("pin")}/>
             </View>
-
                 <View style={styles.newStack}>
                 <Button2
                   onPress={() => setRefreshTrue(true)}
                   small
                   style={{ marginLeft: "75%",  backgroundColor: "violet" }}
                 >
-                  Refresh
+                  {'Refresh ' + useSelectorData.length}
                 </Button2>
                 { isLoading ? <Text>Loading...</Text> : <Text></Text> }
                 { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }

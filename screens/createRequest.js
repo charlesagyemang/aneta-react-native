@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import {addRequest} from '../src/store/actions';
 import { Keyboard, StyleSheet, Text, View } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -93,6 +95,7 @@ export default ({navigation}) => {
     const [alertLogo, setAlertLogo] = useState('✅');
     const [buttonMessage, setButtonMessage] = useState('SUBMIT');
     const [currentUser, setCurrentUser] = useState({id: "", other: {location: "Ablekuma-Awoshie", zone: "Ablekuma-Awoshie", trashSize: "I DONT KNOW"}})
+    const dispatch =  useDispatch();
 
     useEffect(() => {
       AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -154,8 +157,9 @@ export default ({navigation}) => {
       axios.post(url, bodyToSend)
       .then(({data}) => {
         const message = `Request Successfully Created With ID ${data.id}`;
-        setButtonMessage('Success')
-        navigation.navigate('All Requests', {name: 'All Requets'})
+        setButtonMessage('Success');
+        dispatch(addRequest(data));
+        navigation.navigate('All Requests', {name: 'All Requets'});
         // console.log(data);
         // setAlertVisibility(true)
         // setAlertMessage(message)
