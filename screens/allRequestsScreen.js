@@ -154,15 +154,18 @@ export default () => {
                 onChangeText={pin => console.log("pin")}/>
             </View>
                 <View style={styles.newStack}>
-                <Button2
-                  onPress={() => setRefreshTrue(true)}
-                  small
-                  style={{ marginLeft: "75%",  backgroundColor: "violet" }}
-                >
-                  {'Refresh ' + useSelectorData.length}
-                </Button2>
-                { isLoading ? <Text>Loading...</Text> : <Text></Text> }
-                { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
+                  <TouchableOpacity
+                    onPress={() => setRefreshTrue(true)}
+                  >
+                    <Icon
+                    style={{ marginLeft: "85%"}}
+                      size={BASE_SIZE * 2.5}
+                      name={'ios-refresh'}
+                      color={'black'}
+                    />
+                  </TouchableOpacity>
+                  { isLoading ? <Text>Loading...</Text> : <Text></Text> }
+                  { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
                 </View>
                 <SafeAreaView style={styles.safeAreaStyle}>
                     <ScrollView>
@@ -193,7 +196,7 @@ const styles = StyleSheet.create({
       height: "80%"
     },
     newStack:{
-      height: "5%"
+      height: "7%"
     },
     card: {
       borderColor: 'transparent',
