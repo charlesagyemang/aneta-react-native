@@ -74,22 +74,28 @@ export default () => {
    const renderCard = (props, index) => {
      const gradientColors = index % 2 ? theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_ONE : theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_TWO;
      let gradientColorsTwo;
+     let iconName;
 
      switch (props.requestStatus) {
        case 'CREATED':
-         gradientColorsTwo = ['#5E72E4', '#9AA6FF'] //[ '#18A558' , '#A3EBB1' ]
+         gradientColorsTwo = ['#5E72E4', '#9AA6FF']; //[ '#18A558' , '#A3EBB1' ]
+         iconName = "ios-create";
          break;
        case 'PROCESSING':
-         gradientColorsTwo = [ '#D1D100', '#FFFF00']
+         gradientColorsTwo = [ '#D1D100', '#FFFF00'];
+         iconName = "ios-document";
          break;
        case 'ASSIGNED_TO_A_DRIVER':
-         gradientColorsTwo = [ '#F76201' , '#DFB106' ]
+         gradientColorsTwo = [ '#F76201' , '#DFB106' ];
+         iconName = "ios-hand";
          break;
        case 'DRIVER_ON_ROUTE_TO_PICKUP':
-         gradientColorsTwo = [ '#3B0918' , '#B8390E' ]
+         gradientColorsTwo = [ '#3B0918' , '#B8390E' ];
+         iconName = "ios-car";
          break;
        case 'PICKUP_COMPLETE':
-         gradientColorsTwo = [ '#18A558' , '#A3EBB1' ]
+         gradientColorsTwo = [ '#18A558' , '#A3EBB1' ];
+         iconName = "ios-checkbox";
          break;
        default:
 
@@ -110,7 +116,7 @@ export default () => {
          >
            <Icon
              size={BASE_SIZE * 1.8}
-             name="ios-git-pull-request"
+             name={iconName}
              color={COLOR_WHITE}
              family={props.iconFamily}
            />
