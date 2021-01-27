@@ -80,27 +80,33 @@ export default () => {
 
    const renderCard = (props, index) => {
      const gradientColors = index % 2 ? theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_ONE : theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_TWO;
+     let innerStatus;
      let gradientColorsTwo;
      let iconName;
 
      switch (props.requestStatus) {
        case 'CREATED':
+         innerStatus = "Created";
          gradientColorsTwo = ['#5E72E4', '#9AA6FF']; //[ '#18A558' , '#A3EBB1' ]
          iconName = "ios-create";
          break;
        case 'PROCESSING':
+         innerStatus = "Processing";
          gradientColorsTwo = [ '#D1D100', '#FFFF00'];
          iconName = "ios-document";
          break;
        case 'ASSIGNED_TO_A_DRIVER':
+         innerStatus = "Assigned To A Driver";
          gradientColorsTwo = [ '#F76201' , '#DFB106' ];
          iconName = "ios-hand";
          break;
        case 'DRIVER_ON_ROUTE_TO_PICKUP':
+         innerStatus = "Driver Is On The Way";
          gradientColorsTwo = [ '#3B0918' , '#B8390E' ];
          iconName = "ios-car";
          break;
        case 'PICKUP_COMPLETE':
+         innerStatus = "Pickup Complete";
          gradientColorsTwo = [ '#18A558' , '#A3EBB1' ];
          iconName = "ios-checkbox";
          break;
@@ -132,7 +138,7 @@ export default () => {
          <Block flex>
            <Text size={BASE_SIZE * 1.125} >{props.other.proposedLocation}</Text>
            <Text size={BASE_SIZE * 0.875} >{moment(props.date).format('Do MMM YYYY')}</Text>
-           <Text size={BASE_SIZE * 0.875} >Status: {props.requestStatus}</Text>
+           <Text size={BASE_SIZE * 0.875} >Status: {innerStatus}</Text>
            <Text size={BASE_SIZE * 0.875} >ID: {props.id}</Text>
          </Block>
 

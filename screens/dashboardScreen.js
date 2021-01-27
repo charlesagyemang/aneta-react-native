@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {addition, subtraction} from '../src/store/actions';
+import {setIndividualStatistics} from '../src/store/actions';
 import axios from 'axios'
 import {
   StyleSheet, ScrollView, Platform, View, TouchableOpacity, AsyncStorage
@@ -29,20 +29,16 @@ const COLOR_GREY = theme2.COLORS.MUTED; // '#D8DDE1';
 const statsTitles = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
 
 const Dashboard = ({navigation}) => {
-  const [reqStat, setReqStat] = useState({todaysRequest: [], thisWeeksRequest: [], thisMonthsRequest: [], requests: [{id: "none"}]})
+  const reqStat = useSelector(state => state.individualStat)
+  const dispatch =  useDispatch()
   const [token, setToken] = useState('');
-
   const todReq = reqStat.todaysRequest.length
   const twReq = reqStat.thisWeeksRequest.length
   const tmReq = reqStat.thisMonthsRequest.length || 0
   const allTime = reqStat.requests.length || 0
-
   const mostRecent = reqStat.requests[0] ? reqStat.requests[0].id : 'NAN'
-  const completed = reqStat.requests.filter(x => x.requestStatus === "COMPLETED").length;
+  const completed = reqStat.requests.filter(x => x.requestStatus === "PICKUP_COMPLETE").length;
   const created = reqStat.requests.filter(x => x.requestStatus === "CREATED").length;
-
-  const data = useSelector(state => state.counter)
-  const dispatch =  useDispatch()
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -50,13 +46,14 @@ const Dashboard = ({navigation}) => {
       const url = `https://kelin-weebhook.herokuapp.com/api/user/mobile/${JSON.parse(data).id}`
       axios.get(url)
       .then((resp) => {
-        setReqStat(resp.data);
+        dispatch(setIndividualStatistics(resp.data))
       })
       .catch((e) => {
         console.log(e.message);
       })
     });
   }, []);
+
 
   // mock data
   const cards = [
