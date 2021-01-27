@@ -194,7 +194,7 @@ const Dashboard = ({navigation}) => {
 
   return (
     <View style={{flex: 1,  justifyContent: 'center' }}>
-      <AppBar name="Create A Request" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
+      <AppBar name="Aneta Technologies" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
       <ScrollView  style={{marginTop: "50%"}}>
         {renderCards()}
       </ScrollView>

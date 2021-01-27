@@ -213,7 +213,7 @@ export default () => {
 
     return(
         <View style={{flex: 1}}>
-            <AppBar name="All Requests" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
+            <AppBar name="All Locations" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
             <View style={styles.container}>
                 <View style={styles.newStack}>
                   <TouchableOpacity
