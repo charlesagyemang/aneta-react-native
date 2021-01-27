@@ -37,6 +37,8 @@ const MyNavigationDrawer = () => {
               iconName = focused ? 'ios-contact' : 'ios-contact';
             } else if (route.name === 'Settings'){
               iconName = focused ? 'ios-cog' : 'ios-cog';
+            } else if (route.name === 'Locations'){
+              iconName = focused ? 'ios-pin' : 'ios-pin';
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -51,6 +53,7 @@ const MyNavigationDrawer = () => {
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Locations" component={ProfileScreen} />
       </Tab.Navigator>
   )
 }
