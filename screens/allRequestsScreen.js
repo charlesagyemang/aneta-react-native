@@ -140,6 +140,73 @@ export default () => {
        </TouchableOpacity>
      );
    }
+
+   const renderDetailedCard = (props, index) => {
+     const gradientColors = index % 2 ? theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_ONE : theme2.COLOR_THEMES.ONE.GRADIENT_VARIANT_TWO;
+     let gradientColorsTwo;
+     let iconName;
+
+     switch (props.requestStatus) {
+       case 'CREATED':
+         gradientColorsTwo = ['#5E72E4', '#9AA6FF']; //[ '#18A558' , '#A3EBB1' ]
+         iconName = "ios-create";
+         break;
+       case 'PROCESSING':
+         gradientColorsTwo = [ '#D1D100', '#FFFF00'];
+         iconName = "ios-document";
+         break;
+       case 'ASSIGNED_TO_A_DRIVER':
+         gradientColorsTwo = [ '#F76201' , '#DFB106' ];
+         iconName = "ios-hand";
+         break;
+       case 'DRIVER_ON_ROUTE_TO_PICKUP':
+         gradientColorsTwo = [ '#3B0918' , '#B8390E' ];
+         iconName = "ios-car";
+         break;
+       case 'PICKUP_COMPLETE':
+         gradientColorsTwo = [ '#18A558' , '#A3EBB1' ];
+         iconName = "ios-checkbox";
+         break;
+       default:
+
+     }
+
+
+     return (
+       <TouchableOpacity
+         key={props.id}
+         onPress={() => toggleModal(props)}
+       >
+       <Block row center card shadow space="between" style={styles.card} key={props.id}>
+         <Gradient
+           start={[0.45, 0.45]}
+           end={[0.90, 0.90]}
+           colors={gradientColorsTwo}
+           style={[styles.gradient, styles.left]}
+         >
+           <Icon
+             size={BASE_SIZE * 1.8}
+             name={iconName}
+             color={COLOR_WHITE}
+             family={props.iconFamily}
+           />
+         </Gradient>
+
+         <Block flex>
+           <Text size={BASE_SIZE * 1.125} >{props.other.proposedLocation}</Text>
+           <Text size={BASE_SIZE * 0.875} >{moment(props.date).format('Do MMM YYYY')}</Text>
+           <Text size={BASE_SIZE * 0.875} >Status: {props.requestStatus}</Text>
+           <Text size={BASE_SIZE * 0.875} >ID: {props.id}</Text>
+           <Text size={BASE_SIZE * 0.875} >Trash Size: {props.trashSize}</Text>
+           <Text size={BASE_SIZE * 0.875} >Type: {props.requestType}</Text>
+           <Text size={BASE_SIZE * 0.875} >Payment: {props.paymentStatus}</Text>
+         </Block>
+
+       </Block>
+       </TouchableOpacity>
+     );
+   }
+
    const renderCards = () => useSelectorData.filter(x => x.other.status === "ACTIVE").map((card, index) => renderCard(card, index))
 
     return(
@@ -178,7 +245,7 @@ export default () => {
             onBackdropPress={() => toggleModal()}>
              <View style={styles.modalView}>
                 <Block style={{marginTop: "25%"}} flex>
-                  {renderCard(currentRequest)}
+                  {renderDetailedCard(currentRequest)}
                 </Block>
              </View>
            </Modal>
