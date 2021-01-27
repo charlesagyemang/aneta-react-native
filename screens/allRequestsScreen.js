@@ -219,26 +219,30 @@ export default () => {
         <View style={{flex: 1}}>
             <AppBar name="All Requests" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
             <View style={styles.container}>
-            <View style={{...styles.inputView, backgroundColor: theme2.COLOR_THEMES.ONE.PRIMARY}} >
-              <TextInput
-                style={styles.inputText}
-                placeholder="Search Requests"
-                placeholderTextColor= 'white'
-                onChangeText={pin => console.log("pin")}/>
-            </View>
-                <View style={styles.newStack}>
-                  <TouchableOpacity
-                    onPress={() => setRefreshTrue(true)}
-                  >
-                    <Icon
-                    style={{ marginLeft: "85%"}}
-                      size={BASE_SIZE * 2.5}
-                      name={'ios-refresh'}
-                      color={'black'}
-                    />
-                  </TouchableOpacity>
-                  { isLoading ? <Text>Loading...</Text> : <Text></Text> }
-                  { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{...styles.inputView, backgroundColor: theme2.COLOR_THEMES.ONE.PRIMARY}} >
+                  <TextInput
+                    style={styles.inputText}
+                    placeholder="Search Requests"
+                    placeholderTextColor= 'white'
+                    onChangeText={pin => console.log("pin")}/>
+
+                </View>
+
+                <View style={{flex: 1}} >
+                      <TouchableOpacity
+                        onPress={() => setRefreshTrue(true)}
+                      >
+                        <Icon
+                        style={{ marginTop: "30%", marginLeft: "15%"}}
+                          size={BASE_SIZE * 2.5}
+                          name={'ios-refresh'}
+                          color={'purple'}
+                        />
+                      </TouchableOpacity>
+                      { isLoading ? <Text>Loading...</Text> : <Text></Text> }
+                      { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
+                  </View>
                 </View>
                 <SafeAreaView style={styles.safeAreaStyle}>
                     <ScrollView>
@@ -266,7 +270,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     safeAreaStyle: {
-      height: "80%"
+      height: "87%"
     },
     newStack:{
       height: "7%"
@@ -314,7 +318,7 @@ const styles = StyleSheet.create({
     inputView:{
       marginTop: "5%",
       marginLeft: "10%",
-      width:"80%",
+      width:"70%",
       borderRadius:25,
       height:50,
       marginBottom:20,

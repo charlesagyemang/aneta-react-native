@@ -20,7 +20,7 @@ export default function Example({navigation}) {
   const _renderItem = ({item, index}) => {
       return (
           <View style={{flex: 1, backgroundColor: item.code}}>
-            <ImageBackground source={{uri: item.uri}} style={styles.image}>
+            <ImageBackground imageStyle = {{opacity:1}} source={{uri: item.uri}} style={styles.image}>
                 <Text style={styles.title}>{ item.name }</Text>
             </ImageBackground>
           </View>
@@ -39,19 +39,20 @@ export default function Example({navigation}) {
               itemWidth={400}
               layout={'default'}
             />
+
+            <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={[styles.itemContainer, { backgroundColor: item.code }]}
+                  key={item.name}
+                  onPress={() => navigation.navigate(item.url, { name: item.url })}>
+                  <Text style={styles.itemName}>{item.name}</Text>
+                  <Text style={styles.itemCode}>{item.code}</Text>
+                </TouchableOpacity>
+              )}
+            />
         </View>
 
-      <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={[styles.itemContainer, { backgroundColor: item.code }]}
-            key={item.name}
-            onPress={() => navigation.navigate(item.url, { name: item.url })}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemCode}>{item.code}</Text>
-          </TouchableOpacity>
-        )}
-      />
     </View>
   );
 }
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: "60%",
+    marginTop: "20%",
     marginLeft: "25%",
     marginRight: "20%",
     color: 'white'
