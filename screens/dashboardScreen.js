@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {setIndividualStatistics} from '../src/store/actions';
+import Carousel from 'react-native-snap-carousel';
 import axios from 'axios'
 import {
-  StyleSheet, ScrollView, Platform, View, TouchableOpacity, AsyncStorage
+  StyleSheet, ScrollView, Platform, View, TouchableOpacity, AsyncStorage, ImageBackground
 } from 'react-native';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
@@ -39,6 +40,24 @@ const Dashboard = ({navigation}) => {
   const mostRecent = reqStat.requests[0] ? reqStat.requests[0].id : 'NAN'
   const completed = reqStat.requests.filter(x => x.requestStatus === "PICKUP_COMPLETE").length;
   const created = reqStat.requests.filter(x => x.requestStatus === "CREATED").length;
+
+  const [items, setItems] = React.useState([
+    { name: 'All Requests', code: '#8e44ad', url: 'All Requests', uri: 'https://whyy.org/wp-content/uploads/2020/07/2020-7-16-k-paynter-trash-collection-delay-6.jpg' },
+    { name: 'Create A New Request', code: '#2c3e50', url: 'New Request', uri: 'https://img.apmcdn.org/205d8706dc865111c47f00e68ab1e51b69535e6d/portrait/6d101a-20190605-trash-carts-st-paul.jpg' },
+    { name: 'Track A Pickup', code: '#f1c40f', url: 'New Request', uri: 'https://cityofsugarhill.com/wp-content/uploads/2019/08/waste-pickup-trash-removal.jpg' },
+    { name: 'Settings', code: '#e67e22', url: 'Settings', uri: 'https://www.thespruce.com/thmb/7gYM5HstPSxbz5SUiAZbH8F5Yo0=/2119x1414/filters:fill(auto,1)/Mansweepingrestaurant-GettyImages-841234272-efe99f4465384a6c808f22c2e431b2c6.jpg' },
+  ]);
+  let carousel = ""
+
+  const _renderItem = ({item, index}) => {
+      return (
+          <View style={{flex: 1, backgroundColor: item.code}}>
+            <ImageBackground imageStyle = {{opacity:1}} source={{uri: item.uri}} style={styles.image}>
+                <Text style={styles.title}>{ item.name }</Text>
+            </ImageBackground>
+          </View>
+      );
+  }
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -195,7 +214,17 @@ const Dashboard = ({navigation}) => {
   return (
     <View style={{flex: 1,  justifyContent: 'center' }}>
       <AppBar name="Aneta Technologies" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
-      <ScrollView  style={{marginTop: "50%"}}>
+      <View style={{ flex: 1, alignItems: 'center' }}>
+      <Carousel
+            ref={(c) => { carousel = c; }}
+            data={items}
+            renderItem={_renderItem}
+            sliderWidth={450}
+            itemWidth={400}
+            layout={'default'}
+          />
+      </View>
+      <ScrollView style = {{flex: 1, marginTop: "5%"}} >
         {renderCards()}
       </ScrollView>
     </View>
@@ -245,6 +274,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  carouselContainer: {
+    height:"30%",
+  },
+  carousel: {
+    flex:1
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginTop: "20%",
+    marginLeft: "25%",
+    marginRight: "20%",
+    color: 'white'
+
+  },
+
+  image: {
+   flex: 1,
+   resizeMode: "cover",
+   justifyContent: "center"
+ },
+ text: {
+   color: "white",
+   fontSize: 42,
+   fontWeight: "bold",
+   textAlign: "center",
+   backgroundColor: "#000000a0"
+ }
 });
 
 export default Dashboard;
