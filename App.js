@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -152,9 +154,11 @@ export default function App() {
 
   if (isLoaggedIn) {
     return (
-      <NavigationContainer>
-        <MyNavigationDrawer />
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <MyNavigationDrawer />
+        </NavigationContainer>
+      </Provider>
     );
   } else {
     // signup stuff

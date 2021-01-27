@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {addition, subtraction} from '../src/store/actions';
 import axios from 'axios'
 import {
   StyleSheet, ScrollView, Platform, View, TouchableOpacity, AsyncStorage
@@ -38,6 +40,9 @@ const Dashboard = ({navigation}) => {
   const mostRecent = reqStat.requests[0] ? reqStat.requests[0].id : 'NAN'
   const completed = reqStat.requests.filter(x => x.requestStatus === "COMPLETED").length;
   const created = reqStat.requests.filter(x => x.requestStatus === "CREATED").length;
+
+  const data = useSelector(state => state.counter)
+  const dispatch =  useDispatch()
 
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
@@ -193,13 +198,24 @@ const Dashboard = ({navigation}) => {
   return (
     <View style={{flex: 1,  justifyContent: 'center' }}>
       <AppBar name="Create A Request" bg={theme2.COLOR_THEMES.ONE.PRIMARY}/>
-        <ScrollView  style={{marginTop: "50%"}}>
-          {renderCards()}
-        </ScrollView>
+      <ScrollView  style={{marginTop: "50%"}}>
+        {renderCards()}
+      </ScrollView>
     </View>
   );
 }
 
+/*
+// <View style={{flex: 1,  justifyContent: 'center' }}>
+//   <Button
+//    onPress={() => dispatch(subtraction())}
+//   >-</Button>
+//   <Text>{data}</Text>
+//   <Button
+//    onPress={() => dispatch(addition())}
+//   >+</Button>
+// </View>
+*/
 const styles = StyleSheet.create({
   card: {
     borderColor: 'transparent',
