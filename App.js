@@ -34,8 +34,8 @@ const MyNavigationDrawer = () => {
               iconName = focused ? 'ios-git-pull-request' : 'ios-git-pull-request';
             } else if (route.name === 'All Requests'){
               iconName = focused ? 'ios-list' : 'ios-list';
-            } else if (route.name === 'Profile'){
-              iconName = focused ? 'ios-contact' : 'ios-contact';
+            } else if (route.name === 'Home2'){
+              iconName = focused ? 'ios-home' : 'ios-home';
             } else if (route.name === 'Settings'){
               iconName = focused ? 'ios-cog' : 'ios-cog';
             } else if (route.name === 'Locations'){
@@ -50,10 +50,10 @@ const MyNavigationDrawer = () => {
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home2" component={GridScreen} />
         <Tab.Screen name="New Request" component={CreateRequest} />
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
-        <Tab.Screen name="Profile" component={GridScreen} />
         <Tab.Screen name="Locations" component={LocationScreen} />
       </Tab.Navigator>
   )
