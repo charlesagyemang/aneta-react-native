@@ -241,7 +241,7 @@ export default () => {
                         />
                       </TouchableOpacity>
                       { isLoading ? <Text>Loading...</Text> : <Text></Text> }
-                      { isNotEmpty ? <Text></Text> : <Text>You Have No requests</Text> }
+                      { isNotEmpty ? <Text></Text> : <Text>...</Text> }
                   </View>
                 </View>
                 <SafeAreaView style={styles.safeAreaStyle}>
