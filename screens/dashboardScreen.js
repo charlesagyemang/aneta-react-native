@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {setIndividualStatistics} from '../src/store/actions';
-import Carousel from 'react-native-snap-carousel';
+import Carousel, {Pagination}  from 'react-native-snap-carousel';
 import axios from 'axios'
 import {
   StyleSheet, ScrollView, Platform, View, TouchableOpacity, AsyncStorage, ImageBackground
@@ -30,6 +30,7 @@ const COLOR_GREY = theme2.COLORS.MUTED; // '#D8DDE1';
 const statsTitles = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
 
 const Dashboard = ({navigation}) => {
+  const [currentSliderPosition, setCurrentSliderPosition] = useState(0)
   const reqStat = useSelector(state => state.individualStat)
   const dispatch =  useDispatch()
   const [token, setToken] = useState('');
@@ -59,6 +60,25 @@ const Dashboard = ({navigation}) => {
       );
   }
 
+  const pagination =  () => {
+       return (
+           <Pagination
+             dotsLength={items.length}
+             activeDotIndex={currentSliderPosition}
+             containerStyle={{ backgroundColor: 'transparent', height: '12%' }}
+             dotStyle={{
+                 width: 10,
+                 height: 10,
+                 borderRadius: 5,
+                 marginHorizontal: 8,
+                 backgroundColor: '#172B4D'
+             }}
+             inactiveDotOpacity={0.4}
+             inactiveDotScale={0.6}
+           />
+       );
+   }
+
   useEffect(() => {
     AsyncStorage.getItem('USER-DETAILS', (err, data) => {
       setToken(JSON.parse(data).id);
@@ -77,14 +97,6 @@ const Dashboard = ({navigation}) => {
   // mock data
   const cards = [
     {
-      title: 'All Requests',
-      subtitle: `Today: ${todReq} This Week: ${twReq} All Time: ${allTime}`,
-      icon: 'ios-list',
-      iconFamily: 'Galio',
-      name: 'All Requests',
-    },
-
-    {
       title: 'Create A New Request',
       subtitle: `Created: ${created} Completed: ${completed}`,
       icon: 'ios-add-circle',
@@ -92,11 +104,11 @@ const Dashboard = ({navigation}) => {
       name: 'New Request',
     },
     {
-      title: 'Track A Pickup',
-      subtitle: `Most Recent Req: ${mostRecent}`,
-      icon: 'ios-git-pull-request',
+      title: 'All Requests',
+      subtitle: `Today: ${todReq} This Week: ${twReq} All Time: ${allTime}`,
+      icon: 'ios-list',
       iconFamily: 'Galio',
-      name: 'New Request',
+      name: 'All Requests',
     },
 
     {
@@ -106,6 +118,15 @@ const Dashboard = ({navigation}) => {
       iconFamily: 'Galio',
       name: 'Settings',
     },
+
+    {
+      title: 'Track A Pickup',
+      subtitle: `Most Recent Req: ${mostRecent}`,
+      icon: 'ios-git-pull-request',
+      iconFamily: 'Galio',
+      name: 'New Request',
+    },
+
   ];
 
 
@@ -213,7 +234,7 @@ const Dashboard = ({navigation}) => {
 
   return (
     <View style={{flex: 1,  justifyContent: 'center' }}>
-      <View style={{ flex: 1.5, alignItems: 'center' }}>
+      <View style={{ flex: 1.8, alignItems: 'center' }}>
       <Carousel
             ref={(c) => { carousel = c; }}
             data={items}
@@ -221,31 +242,22 @@ const Dashboard = ({navigation}) => {
             sliderWidth={450}
             itemWidth={400}
             layout={'default'}
+            onSnapToItem={(position) => setCurrentSliderPosition(position)}
           />
+          {pagination()}
       </View>
-      <ScrollView style = {{flex: 1, marginTop: "5%"}} >
+      <ScrollView style = {{flex: 1}} >
         {renderCards()}
       </ScrollView>
     </View>
   );
 }
 
-/*
-// <View style={{flex: 1,  justifyContent: 'center' }}>
-//   <Button
-//    onPress={() => dispatch(subtraction())}
-//   >-</Button>
-//   <Text>{data}</Text>
-//   <Button
-//    onPress={() => dispatch(addition())}
-//   >+</Button>
-// </View>
-*/
 const styles = StyleSheet.create({
   card: {
     borderColor: 'transparent',
     marginHorizontal: BASE_SIZE,
-    marginVertical: BASE_SIZE / 3,
+    marginVertical: BASE_SIZE / 6,
     padding: BASE_SIZE / 3,
     backgroundColor: COLOR_WHITE,
     shadowOpacity: 0.40,
