@@ -24,14 +24,14 @@ export default function Example({navigation}) {
 
   const items = [
     {
-      name: 'New Request',
+      name: 'Create a New Request',
       code: '#2c3e50',
       url: 'New Request',
       uri: 'https://img.apmcdn.org/205d8706dc865111c47f00e68ab1e51b69535e6d/portrait/6d101a-20190605-trash-carts-st-paul.jpg',
       message: `Today: ${todReq}\nThis Week: ${twReq}\nAll Time: ${allTime}\n`,
     },
     {
-      name: 'All Requests',
+      name: 'Track a Pickup Request',
       code: '#8e44ad',
       url: 'All Requests',
       uri: 'https://whyy.org/wp-content/uploads/2020/07/2020-7-16-k-paynter-trash-collection-delay-6.jpg',
@@ -39,16 +39,16 @@ export default function Example({navigation}) {
     },
 
     {
-      name: 'Track A Pickup',
+      name: 'All My Requests',
       code: '#f1c40f',
-      url: 'New Request',
+      url: 'All Requests',
       uri: 'https://cityofsugarhill.com/wp-content/uploads/2019/08/waste-pickup-trash-removal.jpg',
       message:`Last Order: ${mostRecent}\n\n\n`,
     },
     {
-      name: 'Locations',
+      name: 'My Locations',
       code: '#e67e22',
-      url: 'Settings',
+      url: 'Locations',
       uri: 'https://www.thespruce.com/thmb/7gYM5HstPSxbz5SUiAZbH8F5Yo0=/2119x1414/filters:fill(auto,1)/Mansweepingrestaurant-GettyImages-841234272-efe99f4465384a6c808f22c2e431b2c6.jpg',
       message: "Checkout Your Locations\n\n\n",
     },
@@ -65,7 +65,6 @@ export default function Example({navigation}) {
                   key={item.name}
                   onPress={() => navigation.navigate(item.url, { name: item.url })}>
                   <Text style={styles.itemName}>{item.name}</Text>
-                  <Text style={styles.itemCode}>{item.message}</Text>
                 </TouchableOpacity>
               )}
             />
@@ -74,6 +73,9 @@ export default function Example({navigation}) {
     </View>
   );
 }
+
+//<Text style={styles.itemCode}>{item.message}</Text>
+
 
 const styles = StyleSheet.create({
   gridView: {
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     borderRadius: 5,
     padding: 10,
-    height: 120,
+    height: 117,
   },
   itemName: {
     fontSize: 16,

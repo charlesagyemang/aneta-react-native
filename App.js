@@ -49,15 +49,16 @@ const MyNavigationDrawer = () => {
           inactiveTintColor: theme.COLOR_THEMES.ONE.DEFAULT,
         }}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Home2" component={GridScreen} />
+        <Tab.Screen name="Home" component={GridScreen} />
         <Tab.Screen name="New Request" component={CreateRequest} />
         <Tab.Screen name="All Requests" component={AllRequestsScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
         <Tab.Screen name="Locations" component={LocationScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
   )
 }
+
+//         <Tab.Screen name="Home" component={HomeScreen} />
 
 export default function App() {
   const [isLoaggedIn, setIsLoggedIn] = useState(false)
