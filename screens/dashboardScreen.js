@@ -65,7 +65,7 @@ const Dashboard = ({navigation}) => {
            <Pagination
              dotsLength={items.length}
              activeDotIndex={currentSliderPosition}
-             containerStyle={{ backgroundColor: 'transparent', height: '12%' }}
+             containerStyle={{ backgroundColor: 'transparent', height: '20%' }}
              dotStyle={{
                  width: 10,
                  height: 10,
@@ -234,7 +234,7 @@ const Dashboard = ({navigation}) => {
 
   return (
     <View style={{flex: 1,  justifyContent: 'center', backgroundColor: '#fffff' }}>
-      <View style={{ flex: 1.8, alignItems: 'center' }}>
+      <View style={{ flex: 1.3, alignItems: 'center' }}>
       <Carousel
             ref={(c) => { carousel = c; }}
             data={items}
