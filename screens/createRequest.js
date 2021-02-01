@@ -109,23 +109,6 @@ export default ({navigation}) => {
         setDatePickerVisibility(true);
     };
 
-    const sendSlackNotification = (data) => {
-      const url = 'https://kelin-weebhook.herokuapp.com/api/notification/slack';
-      const bodyToSend = {
-        data,
-        weebHookUrl: 'https://hooks.slack.com/services/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',
-      }
-
-      axios.post(url, bodyToSend)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      })
-
-    }
-
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
     };
@@ -160,11 +143,6 @@ export default ({navigation}) => {
         setButtonMessage('Success');
         dispatch(addRequest(data));
         navigation.navigate('All Requests', {name: 'All Requets'});
-        // console.log(data);
-        // setAlertVisibility(true)
-        // setAlertMessage(message)
-        // const newMessage = `New Request from Mobile App\n Sender: ${currentUser.other.name} || ${currentUser.phoneNumber}\n Edit Link: https://aneta-dashboard.netlify.app/dashboard/edit-single-request/${data.id}`
-        // sendSlackNotification(newMessage)
       })
       .catch((err) => {
         console.log(err.message);
