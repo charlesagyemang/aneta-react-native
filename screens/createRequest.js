@@ -8,6 +8,7 @@ import moment from 'moment';
 import KehillahDialog from '../components/kehillahDialog';
 import AppBar from '../components/appBar';
 import BaseDropDown from '../components/baseDropDown';
+import {notifySlack} from '../helpers/notifications';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 import theme2 from '../src/theme';
@@ -142,6 +143,7 @@ export default ({navigation}) => {
         const message = `Request Successfully Created With ID ${data.id}`;
         setButtonMessage('Success');
         dispatch(addRequest(data));
+        notifySlack(currentUser, data, true);
         navigation.navigate('All Requests', {name: 'All Requets'});
       })
       .catch((err) => {
