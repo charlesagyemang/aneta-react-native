@@ -26,7 +26,8 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "an3ta.com",
-      "enableDangerousExperimentalLeanBuilds": true
+      "enableDangerousExperimentalLeanBuilds": true,
+      "permissions": ["INTERNET"],
     },
     "web": {
       "favicon": "./assets/favicon.png"
