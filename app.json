@@ -2,7 +2,7 @@
   "expo": {
     "name": "aneta-gh",
     "slug": "aneta-gh",
-    "version": "1.0.0",
+    "version": "2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -28,6 +28,7 @@
       "package": "an3ta.com",
       "enableDangerousExperimentalLeanBuilds": true,
       "permissions": ["INTERNET"],
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
