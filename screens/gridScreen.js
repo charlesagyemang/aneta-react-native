@@ -4,7 +4,7 @@ import { FlatGrid } from 'react-native-super-grid';
 import  Button  from "../components/Button";
 import Slider from '../components/slider';
 import {useSelector, useDispatch} from 'react-redux';
-
+import {appText} from '../constants/languages';
 
 
 
@@ -20,18 +20,18 @@ export default function Example({navigation}) {
   const mostRecent = reqStat.requests[0] ? reqStat.requests[0].id : 'NAN'
   const completed = reqStat.requests.filter(x => x.requestStatus === "PICKUP_COMPLETE").length;
   const created = reqStat.requests.filter(x => x.requestStatus === "CREATED").length;
-
+  const englishTitles = appText.homeScreen.gridCards.titles.en;
 
   const items = [
     {
-      name: 'Create a New Request',
+      name: englishTitles[0],
       code: '#2c3e50',
       url: 'New Request',
       uri: 'https://img.apmcdn.org/205d8706dc865111c47f00e68ab1e51b69535e6d/portrait/6d101a-20190605-trash-carts-st-paul.jpg',
       message: `Today: ${todReq}\nThis Week: ${twReq}\nAll Time: ${allTime}\n`,
     },
     {
-      name: 'Track a Pickup Request',
+      name: englishTitles[1],
       code: '#8e44ad',
       url: 'All Requests',
       uri: 'https://whyy.org/wp-content/uploads/2020/07/2020-7-16-k-paynter-trash-collection-delay-6.jpg',
@@ -39,14 +39,14 @@ export default function Example({navigation}) {
     },
 
     {
-      name: 'All My Requests',
+      name: englishTitles[2],
       code: '#f1c40f',
       url: 'All Requests',
       uri: 'https://cityofsugarhill.com/wp-content/uploads/2019/08/waste-pickup-trash-removal.jpg',
       message:`Last Order: ${mostRecent}\n\n\n`,
     },
     {
-      name: 'My Locations',
+      name: englishTitles[3],
       code: '#e67e22',
       url: 'Locations',
       uri: 'https://www.thespruce.com/thmb/7gYM5HstPSxbz5SUiAZbH8F5Yo0=/2119x1414/filters:fill(auto,1)/Mansweepingrestaurant-GettyImages-841234272-efe99f4465384a6c808f22c2e431b2c6.jpg',

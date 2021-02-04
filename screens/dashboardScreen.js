@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import theme2 from '../src/theme';
 import AppBar from '../components/appBar';
 import Slider from '../components/slider';
+import {appText} from '../constants/languages';
 
 
 
@@ -59,7 +60,7 @@ const Dashboard = ({navigation}) => {
   // mock data
   const cards = [
     {
-      title: 'Create A New Request',
+      title: appText.homeScreen.gridCards.titles.en[0],
       subtitle: `Created: ${created} Completed: ${completed}`,
       icon: 'ios-add-circle',
       iconFamily: 'Galio',

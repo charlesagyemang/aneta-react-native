@@ -15,12 +15,15 @@ import axios from 'axios'
 import KehillahDialog from './components/kehillahDialog';
 import BaseDropDown from './components/baseDropDown';
 import {zoneList} from './constants/utils';
+import {appText} from './constants/languages';
 import theme from './src/theme';
 
 
 // Auth stuff
 import { storeData, retrieveData } from './helpers/localStorage';
 const Tab = createBottomTabNavigator();
+const enNavBarTitles = appText.appScreen.navBarTitles.en
+const pgNavBarTitles = appText.appScreen.navBarTitles.pg
 
 const MyNavigationDrawer = () => {
   return (
@@ -28,18 +31,16 @@ const MyNavigationDrawer = () => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            if (route.name === 'Home') {
+            if (route.name === enNavBarTitles[0] || route.name === pgNavBarTitles[0] ) {
               iconName = focused ? 'ios-home' : 'ios-home';
-            } else if (route.name === 'New Request') {
+            } else if (route.name === enNavBarTitles[1] || route.name === pgNavBarTitles[1]) {
               iconName = focused ? 'ios-git-pull-request' : 'ios-git-pull-request';
-            } else if (route.name === 'All Requests'){
+            } else if (route.name === enNavBarTitles[2] || route.name === pgNavBarTitles[2]){
               iconName = focused ? 'ios-list' : 'ios-list';
-            } else if (route.name === 'Home2'){
-              iconName = focused ? 'ios-home' : 'ios-home';
-            } else if (route.name === 'Settings'){
-              iconName = focused ? 'ios-cog' : 'ios-cog';
-            } else if (route.name === 'Locations'){
+            } else if (route.name === enNavBarTitles[3] || route.name === pgNavBarTitles[3]){
               iconName = focused ? 'ios-pin' : 'ios-pin';
+            } else if (route.name === enNavBarTitles[4] || route.name === pgNavBarTitles[4]){
+              iconName = focused ? 'ios-cog' : 'ios-cog';
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -49,11 +50,11 @@ const MyNavigationDrawer = () => {
           inactiveTintColor: theme.COLOR_THEMES.ONE.DEFAULT,
         }}
       >
-        <Tab.Screen name="Home" component={GridScreen} />
-        <Tab.Screen name="New Request" component={CreateRequest} />
-        <Tab.Screen name="All Requests" component={AllRequestsScreen} />
-        <Tab.Screen name="Locations" component={LocationScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name={enNavBarTitles[0]} component={GridScreen} />
+        <Tab.Screen name={enNavBarTitles[1]} component={CreateRequest} />
+        <Tab.Screen name={enNavBarTitles[2]} component={AllRequestsScreen} />
+        <Tab.Screen name={enNavBarTitles[3]} component={LocationScreen} />
+        <Tab.Screen name={enNavBarTitles[4]} component={SettingsScreen} />
       </Tab.Navigator>
   )
 }
